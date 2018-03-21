@@ -131,7 +131,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
        
       
-        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()  //this may need to be removed
         directionsButton.isEnabled = true
         segueWhat = dataToSegue.tappedMarker
         self.tappedMarkerLocation = marker.position
