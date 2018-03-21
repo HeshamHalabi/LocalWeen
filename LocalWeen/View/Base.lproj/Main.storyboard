@@ -193,7 +193,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="center" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-vX-imb" userLabel="Ratings" customClass="CosmosView" customModule="Cosmos">
+                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-vX-imb" userLabel="Ratings" customClass="CosmosView" customModule="Cosmos">
                                 <rect key="frame" x="136" y="135" width="104" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -310,6 +310,7 @@
                             <constraint firstItem="lbh-aP-d3g" firstAttribute="top" secondItem="8pv-L3-sL5" secondAttribute="bottom" id="r2y-0D-c7v"/>
                             <constraint firstItem="A7i-vX-imb" firstAttribute="top" secondItem="lbh-aP-d3g" secondAttribute="bottom" constant="5" id="sep-Mh-rl0"/>
                             <constraint firstItem="TYZ-ve-2J2" firstAttribute="centerX" secondItem="A7i-vX-imb" secondAttribute="centerX" id="tY9-rA-9gO"/>
+                            <constraint firstItem="A7i-vX-imb" firstAttribute="leading" secondItem="trj-j0-NGq" secondAttribute="leading" constant="136" id="xDY-uy-wKS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="trj-j0-NGq"/>
                     </view>
