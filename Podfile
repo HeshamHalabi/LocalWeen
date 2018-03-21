@@ -9,6 +9,9 @@ target 'LocalWeen' do
   
   #Cosmos Pod
   pod 'Cosmos', '~> 15.0'
+
+  #SwiftBeaver
+  pod 'SwiftyBeaver'
   
   # Google Pods
    pod 'GoogleMaps'
