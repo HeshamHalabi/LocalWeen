@@ -71,6 +71,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         self.setupSearchBar()
         self.startUpLocationManager()
     
+        mapView.settings.myLocationButton = true
         
         //Get all stored locations and place marker
         dbHandler.getFor(coordinateIn: nil, what: "coordinate") { (arCoordinate) in
@@ -124,7 +125,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     @IBAction func didTapSignOut(_ sender: UIButton) {
         SwiftyBeaver.verbose("didTapSignOut stopCamera = false")
-        stopCamera = false
+        stopCamera = true
         SwiftyBeaver.verbose("didTapSignOut - stopUpdatingLocation()")
         locationManager.stopUpdatingLocation()
         SwiftyBeaver.verbose("GIDSignIn.sharedInstance().signOut()")
@@ -145,6 +146,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         self.tappedMarkerLocation = marker.position
         performSegue(withIdentifier: "toDetail", sender: self)
         return false
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if gesture == true {
+            stopCamera = true
+        }
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        stopCamera = false
+        return true
     }
     
     @IBAction func didTapDirections(_ sender: UIButton) {
@@ -172,7 +184,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         UIApplication.shared.open(URL(string:url)!, options: options) { (finished) in
             if finished {
                 SwiftyBeaver.info("Setting stopCamera to false because we are done with the external map and perhaps we need to follow the user with the camera")
-                self.stopCamera = false
+                self.stopCamera = true
                 SwiftyBeaver.info("Done opening Maps = \(String(describing: finished))")
             }
         }
