@@ -35,7 +35,7 @@ class WelcomeViewController: UIViewController {
         
         //if user already logged in to FB, go to map
         if FBSDKAccessToken.current() != nil{
-            SwiftyBeaver.verbose("FBSDKAccessToken.current() != nil, goToMap")
+            log.verbose("FBSDKAccessToken.current() != nil, goToMap")
             goToMap()
         }
         initialUISetups()
@@ -101,9 +101,9 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith loginResult: FBSDKLoginManagerLoginResult!, error: Error!) {
         if error != nil {
             showAlert(withTitle: "Error", message: error.localizedDescription)
-            SwiftyBeaver.error("Error on Facebook login \(String(describing: error.localizedDescription))")
+            log.error("Error on Facebook login \(String(describing: error.localizedDescription))")
         } else if loginResult.isCancelled {
-            SwiftyBeaver.verbose("loginResult.isCancelled")
+            log.verbose("loginResult.isCancelled")
             return
         } else {
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
@@ -111,47 +111,47 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
             Auth.auth().signIn(with: credential) { (user, error) in
                 if let error = error {
                     self.showAlert(withTitle: "Error", message: error as! String)
-                    SwiftyBeaver.error("Error authorizing with Firebase", error as! String)
+                    log.error("Error authorizing with Firebase", error as! String)
                 
                     return
                 }//error
                 //Successful log in
              
-                SwiftyBeaver.verbose("Auth.auth().signIn Successful Firebase Auth")
+                log.verbose("Auth.auth().signIn Successful Firebase Auth")
                 
                 let params = ["fields": "email, first_name, last_name, picture"]
                 FBSDKGraphRequest(graphPath: "me", parameters: params).start(completionHandler: { connection, graphResult, error in
                     if let error = error {
-                        SwiftyBeaver.error("Error getting FB social info \(String(describing: error))")
+                        log.error("Error getting FB social info \(String(describing: error))")
                         return
                     }//error
                     let fields = graphResult as? [String:Any]
                     
-                    SwiftyBeaver.verbose("FBSDKGraphRequest graphResults")
-                    SwiftyBeaver.verbose("\(String(describing: fields))")
+                    log.verbose("FBSDKGraphRequest graphResults")
+                    log.verbose("\(String(describing: fields))")
                     
                     guard let email = fields!["email"] else {
-                        SwiftyBeaver.warning("FBSDKGraphRequest can't get email")
+                        log.warning("FBSDKGraphRequest can't get email")
                         return
                     }
                     
                     social.usrEmail = email as! String
-                    SwiftyBeaver.verbose("FBSDKGraphRequest got email \(String(describing: email))")
+                    log.verbose("FBSDKGraphRequest got email \(String(describing: email))")
                     
                     guard let firstName = fields!["first_name"] else {
-                        SwiftyBeaver.warning("FBSDKGraphRequest can't get first_name")
+                        log.warning("FBSDKGraphRequest can't get first_name")
                         return
                     }
                     social.usrFirstName = firstName as! String
-                    SwiftyBeaver.verbose("FBSDKGraphRequest got first_name \(String(describing: firstName))")
+                    log.verbose("FBSDKGraphRequest got first_name \(String(describing: firstName))")
                     
                     guard let lastName = fields!["last_name"] else {
-                        SwiftyBeaver.warning("FBSDKGraphRequest can't get last_name")
+                        log.warning("FBSDKGraphRequest can't get last_name")
                         return
                     }
                     
                     social.usrLastName = lastName as! String
-                    SwiftyBeaver.verbose("FBSDKGraphRequest got last_name \(String(describing: lastName))")
+                    log.verbose("FBSDKGraphRequest got last_name \(String(describing: lastName))")
                     
                     self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName)
                     
@@ -182,54 +182,54 @@ extension WelcomeViewController: GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error) != nil {
-            SwiftyBeaver.error("Either the user already signed out or an error occured during Google Authentication")
-            SwiftyBeaver.error(error.localizedDescription)
+            log.error("Either the user already signed out or an error occured during Google Authentication")
+            log.error(error.localizedDescription)
             return
         }//error
         
         if user.profile.email != nil {
             social.usrEmail = user.profile.email
         } else {
-            SwiftyBeaver.warning("Could not get social.usrEmail")
+            log.warning("Could not get social.usrEmail")
         }//social.usrEmail
         
-        SwiftyBeaver.debug("social.usrEmail = \(String(describing: social.usrEmail))")
+        log.verbose("social.usrEmail = \(String(describing: social.usrEmail))")
         
         if user.profile.givenName != nil {
         
             social.usrFirstName = user.profile.givenName
             
         } else {
-            SwiftyBeaver.warning("Google sign in - could not get user given name")
+            log.warning("Google sign in - could not get user given name")
         }//social.usrGivenName
         
-        SwiftyBeaver.debug("social.usrGivenName = \(String(describing: social.usrFirstName))")
+        log.verbose("social.usrGivenName = \(String(describing: social.usrFirstName))")
         
         if user.profile.familyName != nil {
             social.usrLastName = user.profile.familyName
             
         } else {
-            SwiftyBeaver.warning("Google sign in - could not get user familyName")
+            log.warning("Google sign in - could not get user familyName")
         }//social.usrFamilyName
         
-        SwiftyBeaver.verbose("social.usrFamilyName = \(String(describing: social.usrFirstName))")
+        log.verbose("social.usrFamilyName = \(String(describing: social.usrFirstName))")
         
         if user.profile.hasImage {
             guard let url = (user.profile.imageURL(withDimension: 120)) else {
-                SwiftyBeaver.warning("user.profile.imageURL is not found")
+                log.warning("user.profile.imageURL is not found")
                 return
             }//let url
         
             let session = URLSession.shared
             session.dataTask(with: url) { (data, response, error) in
                 if let error = error {
-                    SwiftyBeaver.warning("ERROR session.dataTask \(error)")
+                    log.warning("ERROR session.dataTask \(error)")
                 }//let error
         if let data = data {
             social.usrProfilePhoto  = UIImage(data: data)!
-            SwiftyBeaver.verbose("social.usrProfilePhoto SUCCESS ")
+            log.verbose("social.usrProfilePhoto SUCCESS ")
         } else {
-            SwiftyBeaver.warning("WelcomeViewController: GIDSignInUIDelegate-sign-social.usrProfilePhoto FAILED")
+            log.warning("WelcomeViewController: GIDSignInUIDelegate-sign-social.usrProfilePhoto FAILED")
         }//let data
         
                 }.resume() //session.dataTask
@@ -238,7 +238,7 @@ extension WelcomeViewController: GIDSignInDelegate {
         self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName)
         
         guard let authentication = user.authentication else {
-            SwiftyBeaver.error("Firebase Authentication failed")
+            log.error("Firebase Authentication failed")
             return
             
         }
@@ -246,9 +246,9 @@ extension WelcomeViewController: GIDSignInDelegate {
         accessToken: authentication.accessToken)
         Auth.auth().signIn(with: credential) { (user, error) in
             if (error) != nil {
-                SwiftyBeaver.error("Google Authentification Failed \(String(describing: error?.localizedDescription))")
+                log.error("Google Authentification Failed \(String(describing: error?.localizedDescription))")
             } else {
-                SwiftyBeaver.verbose("Google Authentification Success")
+                log.verbose("Google Authentification Success")
                 self.goToMap()
         }//error
     }//Auth

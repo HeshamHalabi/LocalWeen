@@ -36,7 +36,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
-    var searchCoordinates:CLLocationCoordinate2D = CLLocationCoordinate2D()
+    let resultMarker:GMSMarker = GMSMarker()
+  
     
     //Directions Support
     @IBOutlet weak var directionsButton: UIButton!
@@ -62,6 +63,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         //Directions button is disabled until user taps on maker
         directionsButton.isEnabled = false
@@ -79,7 +81,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
                 let lat = (coord as! CLLocationCoordinate2D).latitude
                 let long = (coord as! CLLocationCoordinate2D).longitude
                 self.placeMarker(latitude: lat, longitude: long, imageName: self.locationOfInterestImage)
-                SwiftyBeaver.verbose("\(String(describing: lat)) , \(String(describing: long)) ")
+                log.verbose("\(String(describing: lat)) , \(String(describing: long)) ")
             }//for
             
         }//dbHandler
@@ -91,33 +93,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        //WHAT TO DO HERE, NEED ANSWER TO ENUM QUESTION
+      
         switch segueWhat {
         case .userLocation?:
             if let destination = segue.destination as? LocationDetialViewController {
                 destination.coord = self.locationManager.location?.coordinate
-                SwiftyBeaver.verbose("\(String(describing:destination.coord  ))")
+                log.verbose("\(String(describing:destination.coord  ))")
             } else { return }
         case .tappedMarker?:
             if let destination = segue.destination as? LocationDetialViewController {
                 destination.coord = self.tappedMarkerLocation
-                SwiftyBeaver.verbose("\(String(describing:destination.coord  ))")
+                log.verbose("\(String(describing:destination.coord  ))")
             } else {return}
         case .searchResult?:
             if let destination = segue.destination as? LocationDetialViewController {
                 destination.coord = singleSearchResult
-                SwiftyBeaver.verbose("\(String(describing:destination.coord  ))")
+                log.verbose("\(String(describing:destination.coord  ))")
               
             } else {return}
         default:
-            SwiftyBeaver.verbose("default")
+            log.verbose("default")
         }
     }//prepare
 
     
     //MARK: Pinch Management
     @IBAction func didPinch(_ sender: UIPinchGestureRecognizer) {
-        SwiftyBeaver.verbose("stopCamera = true")
+        log.verbose("stopCamera = true")
         stopCamera = true
     }
     
@@ -128,20 +130,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     //MARK: Sign Out
     
     @IBAction func didTapSignOut(_ sender: UIButton) {
-        SwiftyBeaver.verbose("didTapSignOut stopCamera = false")
+        log.verbose("didTapSignOut stopCamera = false")
         stopCamera = true
-        SwiftyBeaver.verbose("didTapSignOut - stopUpdatingLocation()")
+        log.verbose("didTapSignOut - stopUpdatingLocation()")
         locationManager.stopUpdatingLocation()
-        SwiftyBeaver.verbose("GIDSignIn.sharedInstance().signOut()")
+        log.verbose("GIDSignIn.sharedInstance().signOut()")
         GIDSignIn.sharedInstance().signOut()
-        SwiftyBeaver.verbose("FBSDKLoginManager().logOut()")
+        log.verbose("FBSDKLoginManager().logOut()")
         FBSDKLoginManager().logOut()
     }
     
     //MARK: Did Tap Marker
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        SwiftyBeaver.info("Setting stopCamera true when marker tapped so camera is at marker and not following user")
+        log.info("Setting stopCamera true when marker tapped so camera is at marker and not following user")
         stopCamera = true
         locationManager.stopUpdatingLocation()
         directionsButton.isEnabled = true
@@ -163,17 +165,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     @IBAction func didTapDirections(_ sender: UIButton) {
-        SwiftyBeaver.info("Setting stopCamera = true user asked for directions, so stop following user on map")
+        log.info("Setting stopCamera = true user asked for directions, so stop following user on map")
         stopCamera = true
         directionsButton.isEnabled = false
         guard let from = locationManager.location?.coordinate else {
-            SwiftyBeaver.warning("Could not get user's current location for driving directions")
+            log.warning("Could not get user's current location for driving directions")
             return
         }
         
         let to = self.tappedMarkerLocation
         
-        SwiftyBeaver.info("Directions from \(String(describing: from)) , to \(String(describing: tappedMarkerLocation))")
+        log.info("Directions from \(String(describing: from)) , to \(String(describing: tappedMarkerLocation))")
         let url = "http://maps.apple.com/maps?saddr=\(from.latitude),\(from.longitude)&daddr=\(to.latitude),\(to.longitude)"
         //UIApplication.shared.openURL(URL(string:url)!)
         let regionDistance:CLLocationDistance = 1000
@@ -186,9 +188,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         
         UIApplication.shared.open(URL(string:url)!, options: options) { (finished) in
             if finished {
-                SwiftyBeaver.info("Setting stopCamera to false because we are done with the external map and perhaps we need to follow the user with the camera")
+                log.info("Setting stopCamera to false because we are done with the external map and perhaps we need to follow the user with the camera")
                 self.stopCamera = true
-                SwiftyBeaver.info("Done opening Maps = \(String(describing: finished))")
+                log.info("Done opening Maps = \(String(describing: finished))")
             }
         }
     }

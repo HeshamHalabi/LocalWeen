@@ -14,18 +14,26 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {
         singleSearchResult = place.coordinate
+        
+        if resultMarker.map != nil {
+            resultMarker.map = nil
+        }
+        
         segueWhat = dataToSegue.searchResult
         searchController?.isActive = false
         // Do something with the selected place.
-        placeMarker(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude, imageName: questionMarker)
+        
+        resultMarker.map = self.mapView
+        resultMarker.icon = UIImage(named: questionMarker)
+        resultMarker.position = place.coordinate
         self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: zoom, bearing: 0, viewingAngle: 0)
-        searchCoordinates = place.coordinate
-        SwiftyBeaver.verbose("searchCoordinates \(String(describing: searchCoordinates ))")
+        
+        log.verbose("searchCoordinates \(String(describing: singleSearchResult ))")
     }
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didFailAutocompleteWithError error: Error){
-        SwiftyBeaver.error("Error", error.localizedDescription )
+        log.error("Error", error.localizedDescription )
     }
     
     // Turn the network activity indicator on and off again.
