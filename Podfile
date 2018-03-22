@@ -19,11 +19,13 @@ target 'LocalWeen' do
    pod 'Firebase/Storage'
    pod 'Firebase/Core'
    pod 'Firebase/Auth'
-   pod 'GoogleSignIn'
+   #pod 'GoogleSignIn'
    pod 'FirebaseUI/Storage'
    pod 'GooglePlaces'
+  #pod 'FirebaseUI'
+   pod 'FirebaseUI/Google'
    
    #Facebook
-   pod 'FBSDKLoginKit'
+   #pod 'FBSDKLoginKit'
 
 end

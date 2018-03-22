@@ -11,7 +11,8 @@ import Firebase
 import GoogleSignIn
 import GoogleMaps
 import GooglePlaces
-import FBSDKCoreKit
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 import SwiftyBeaver
 
 enum ProfileSource {
@@ -22,7 +23,6 @@ class socialProfile{
     var usrFirstName = ""
     var usrLastName = ""
     var usrEmail = ""
-    var usrProfilePhoto = UIImage()
     var profileSource:ProfileSource?
 }
 
@@ -48,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Google sign in
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
-        //Facebook sign in
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
@@ -70,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.addDestination(file)
 
     }
+    @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let googleAuthentication = GIDSignIn.sharedInstance().handle(url, sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
         return googleAuthentication

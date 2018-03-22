@@ -11,7 +11,6 @@ import GoogleMaps
 import FirebaseDatabase
 import GoogleSignIn
 import GooglePlaces
-import FBSDKLoginKit
 import SwiftyBeaver
 import MapKit
 
@@ -63,7 +62,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         //Directions button is disabled until user taps on maker
         directionsButton.isEnabled = false
@@ -136,8 +134,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         locationManager.stopUpdatingLocation()
         log.verbose("GIDSignIn.sharedInstance().signOut()")
         GIDSignIn.sharedInstance().signOut()
-        log.verbose("FBSDKLoginManager().logOut()")
-        FBSDKLoginManager().logOut()
+        performSegue(withIdentifier: "backToWelcome", sender: self)
     }
     
     //MARK: Did Tap Marker

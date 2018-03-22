@@ -126,7 +126,7 @@ class DBHandler{
         case .twitter:
             sourceRecord = "twitter"
         default:
-            sourceRecord = ""
+            sourceRecord = "email"
         }
         
         let userData = ["email": email,

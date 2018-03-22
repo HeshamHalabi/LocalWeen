@@ -11,48 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Welcome-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Welcome" customClass="WelcomeViewController" customModule="LocalWeen" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="halloweenWelcome" translatesAutoresizingMaskIntoConstraints="NO" id="iS6-sw-Zxb">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPF-7T-rgC" userLabel="Legal">
-                                <rect key="frame" x="167" y="607" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="D10-hW-VRb"/>
-                                    <constraint firstAttribute="height" constant="40" id="fFW-Zq-zXE"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="Info"/>
-                                <connections>
-                                    <segue destination="7wn-tL-CSG" kind="show" id="BXc-QM-eih"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="iS6-sw-Zxb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2Vb-JW-aZ5"/>
-                            <constraint firstItem="iS6-sw-Zxb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="LAe-rD-Xs2"/>
-                            <constraint firstItem="UPF-7T-rgC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VsZ-tw-rD6"/>
-                            <constraint firstItem="iS6-sw-Zxb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kbF-1S-enk"/>
-                            <constraint firstItem="UPF-7T-rgC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-20" id="l20-fL-DnJ"/>
-                            <constraint firstItem="iS6-sw-Zxb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="t6j-Gi-nzW"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="HRd-Ps-JpR"/>
-                    <connections>
-                        <segue destination="Ldp-YH-622" kind="show" identifier="toMap" id="BW0-er-F2Y"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="437.60000000000002" y="116.49175412293854"/>
-        </scene>
         <!--Legal-->
         <scene sceneID="kac-eb-FzA">
             <objects>
@@ -116,7 +74,7 @@
                                         <state key="normal" title="Sign Out"/>
                                         <connections>
                                             <action selector="didTapSignOut:" destination="Ldp-YH-622" eventType="touchUpInside" id="JNr-Pf-kiq"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="gIk-lJ-S3n"/>
+                                            <segue destination="vgz-g3-S35" kind="show" identifier="backToWelcome" id="2L4-5e-zHt"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eqq-1q-ykL" userLabel="Directions">
@@ -338,21 +296,35 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="nnH-N2-C6P"/>
+                        <segue destination="vgz-g3-S35" kind="relationship" relationship="rootViewController" id="RCg-8h-QUB"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVc-Ex-J9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-266" y="116"/>
         </scene>
+        <!--Welcome-->
+        <scene sceneID="7Um-HX-OQ0">
+            <objects>
+                <viewController id="vgz-g3-S35" userLabel="Welcome" customClass="WelcomeViewController" customModule="LocalWeen" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0oq-ZY-pmZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="4zp-IM-imd"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z0C-B7-KVI"/>
+                    <connections>
+                        <segue destination="Ldp-YH-622" kind="show" identifier="toMap" id="vLr-oj-7sU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TyC-4H-ijt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="446" y="99"/>
+        </scene>
     </scenes>
-    <resources>
-        <image name="Info" width="96" height="96"/>
-        <image name="halloweenWelcome" width="1080" height="1920"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ffd-Mp-pkl"/>
-        <segue reference="z6o-t9-nyD"/>
-        <segue reference="gIk-lJ-S3n"/>
+        <segue reference="2L4-5e-zHt"/>
+        <segue reference="vLr-oj-7sU"/>
     </inferredMetricsTieBreakers>
 </document>
