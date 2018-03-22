@@ -114,10 +114,25 @@ class DBHandler{
         SwiftyBeaver.verbose("Location data is: \(String(describing: location))")
     }//end setLocation
     
-    func addUser(email: String, firstName: String, lastName: String){
+    func addUser(email: String, firstName: String, lastName: String, source: ProfileSource){
+        
+        var sourceRecord = String()
+        
+        switch source {
+        case .google:
+            sourceRecord = "google"
+        case .facebook:
+            sourceRecord = "facebook"
+        case .twitter:
+            sourceRecord = "twitter"
+        default:
+            sourceRecord = ""
+        }
+        
         let userData = ["email": email,
                         "first_name": firstName,
-                        "last_name": lastName
+                        "last_name": lastName,
+                        "source": sourceRecord
         ]
         self.userRef.childByAutoId().setValue(userData)
         SwiftyBeaver.verbose("addUser \(String(describing: userData))")

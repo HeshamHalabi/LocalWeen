@@ -153,7 +153,7 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
                     social.usrLastName = lastName as! String
                     log.verbose("FBSDKGraphRequest got last_name \(String(describing: lastName))")
                     
-                    self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName)
+                    self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName, source: .facebook )
                     
                    /*********
                      FOR THE MOMENT, FORGET ABOUT THE PHOTO!
@@ -235,7 +235,7 @@ extension WelcomeViewController: GIDSignInDelegate {
                 }.resume() //session.dataTask
         }//if user.profile.hasImage
         
-        self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName)
+        self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName, source: .google)
         
         guard let authentication = user.authentication else {
             log.error("Firebase Authentication failed")
