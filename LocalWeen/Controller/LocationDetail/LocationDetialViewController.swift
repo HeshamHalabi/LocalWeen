@@ -62,7 +62,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         actionSheet.addAction(UIAlertAction(title: "Agree - Save", style: .default, handler: { (action:UIAlertAction) in
            //Save the data
             guard let coordinate = self.coord else {
-                SwiftyBeaver.error("Can't get coordinate")
+                log.error("Can't get coordinate")
                 return
             }//guard
             
@@ -107,7 +107,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     func getLocationPhotos(coordinate:CLLocationCoordinate2D){
         dbHandler.getFor(coordinateIn: coordinate, what: "fileNames") { (fileNames) in
             for file in fileNames{
-                SwiftyBeaver.verbose("\(String(describing: file))")
+                log.verbose("\(String(describing: file))")
             }//for
         }//dbHandler
     }//getLocationPhotos

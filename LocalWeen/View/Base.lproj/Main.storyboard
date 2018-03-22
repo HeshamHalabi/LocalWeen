@@ -177,7 +177,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-image" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-L3-sL5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-L3-sL5">
                                 <rect key="frame" x="147" y="25" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="WDM-8C-mod"/>
@@ -349,7 +349,6 @@
     <resources>
         <image name="Info" width="96" height="96"/>
         <image name="halloweenWelcome" width="1080" height="1920"/>
-        <image name="no-image" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ffd-Mp-pkl"/>

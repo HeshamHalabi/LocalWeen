@@ -22,6 +22,7 @@ class socialProfile{
 }
 
 let social = socialProfile()
+let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -50,17 +51,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupSwiftyBeaverLogging(){
     
+        let format = "$C$L$c:$l:$DHH:mm:ss$d$C$N.$F()$c:$M"
         let console = ConsoleDestination()
-        console.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
-        SwiftyBeaver.addDestination(console)
+        console.format = format
+        log.addDestination(console)
         let platform = SBPlatformDestination(appID: "pgxG5z",
                                              appSecret: "rYlivwwdlfaKyfBSbhgU8yNmt5bcNNdn",
                                              encryptionKey: "RlrWwk0ciktIadaslZ17oenoabydnzyy")
-        platform.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
-        SwiftyBeaver.addDestination(platform)
+        platform.format = format
+        log.addDestination(platform)
         let file = FileDestination()
-        file.format = "$DHH:mm:ss$d $N.$F():$l $L: $M"
-        SwiftyBeaver.addDestination(file)
+        file.format = format
+        log.addDestination(file)
 
     }
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
