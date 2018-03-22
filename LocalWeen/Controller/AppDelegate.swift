@@ -14,11 +14,16 @@ import GooglePlaces
 import FBSDKCoreKit
 import SwiftyBeaver
 
+enum ProfileSource {
+    case twitter, facebook, google, none
+}
+
 class socialProfile{
     var usrFirstName = ""
     var usrLastName = ""
     var usrEmail = ""
     var usrProfilePhoto = UIImage()
+    var profileSource:ProfileSource?
 }
 
 let social = socialProfile()
