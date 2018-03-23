@@ -32,6 +32,7 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
             return
         }
         
+        authUI.isSignInWithEmailHidden = true
         authUI.delegate = self as FUIAuthDelegate
         authUI.providers = providers
         
