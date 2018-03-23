@@ -12,6 +12,7 @@
 		CE23C55B204B5B0E004E090A /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23C55A204B5B0E004E090A /* Storage.swift */; };
 		CE567EA4204E178700C457BD /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE567EA3204E178600C457BD /* LegalViewController.swift */; };
 		CE828FEF2059E4D30027B06C /* MapViewController+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE828FEE2059E4D30027B06C /* MapViewController+SearchBar.swift */; };
+		CE8F651220647CCE007FE079 /* FUIAuthBaseViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8F651120647CCE007FE079 /* FUIAuthBaseViewController+extension.swift */; };
 		CEC17DFF204A194E0075351E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC17DFE204A194E0075351E /* AppDelegate.swift */; };
 		CEC17E04204A194F0075351E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEC17E02204A194F0075351E /* Main.storyboard */; };
 		CEC17E06204A194F0075351E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC17E05204A194F0075351E /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		CE567EA3204E178600C457BD /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
 		CE7F78412051EC670021E93C /* LocalWeen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalWeen.entitlements; sourceTree = "<group>"; };
 		CE828FEE2059E4D30027B06C /* MapViewController+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+SearchBar.swift"; sourceTree = "<group>"; };
+		CE8F651120647CCE007FE079 /* FUIAuthBaseViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FUIAuthBaseViewController+extension.swift"; sourceTree = "<group>"; };
 		CEC17DFB204A194E0075351E /* LocalWeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalWeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC17DFE204A194E0075351E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEC17E03204A194F0075351E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				CEC17E16204A27240075351E /* WelcomeViewController.swift */,
+				CE8F651120647CCE007FE079 /* FUIAuthBaseViewController+extension.swift */,
 			);
 			path = WelcomeViewController;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				CEF1145520576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift in Sources */,
 				CEC17E1B204A30A30075351E /* MapViewController.swift in Sources */,
 				CE23C55B204B5B0E004E090A /* Storage.swift in Sources */,
+				CE8F651220647CCE007FE079 /* FUIAuthBaseViewController+extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
