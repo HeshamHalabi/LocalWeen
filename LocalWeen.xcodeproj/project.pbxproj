@@ -21,6 +21,8 @@
 		CEC17E17204A27240075351E /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC17E16204A27240075351E /* WelcomeViewController.swift */; };
 		CEC17E1B204A30A30075351E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC17E1A204A30A30075351E /* MapViewController.swift */; };
 		CEC17E1D204A660B0075351E /* LocationDetialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC17E1C204A660B0075351E /* LocationDetialViewController.swift */; };
+		CEEFE61920649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEFE61820649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift */; };
+		CEEFE61B206497C5005FF2B4 /* showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEFE61A206497C5005FF2B4 /* showAlert.swift */; };
 		CEF1145320576A7200001525 /* LocationDetialViewController+Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1145220576A7100001525 /* LocationDetialViewController+Ratings.swift */; };
 		CEF1145520576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1145420576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift */; };
 		CEF1145720576ED600001525 /* LocationDetailViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1145620576ED600001525 /* LocationDetailViewController+Camera.swift */; };
@@ -49,6 +51,9 @@
 		CEC17E16204A27240075351E /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		CEC17E1A204A30A30075351E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CEC17E1C204A660B0075351E /* LocationDetialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetialViewController.swift; sourceTree = "<group>"; };
+		CEEFE61720648682005FF2B4 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		CEEFE61820649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeViewController+FBSDKLoginManagerDelegate.swift"; sourceTree = "<group>"; };
+		CEEFE61A206497C5005FF2B4 /* showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showAlert.swift; sourceTree = "<group>"; };
 		CEF1145220576A7100001525 /* LocationDetialViewController+Ratings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetialViewController+Ratings.swift"; sourceTree = "<group>"; };
 		CEF1145420576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetailViewController+PhotoGallery.swift"; sourceTree = "<group>"; };
 		CEF1145620576ED600001525 /* LocationDetailViewController+Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetailViewController+Camera.swift"; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				CEC17E16204A27240075351E /* WelcomeViewController.swift */,
+				CEEFE61820649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift */,
 				CE8F651120647CCE007FE079 /* FUIAuthBaseViewController+extension.swift */,
 			);
 			path = WelcomeViewController;
@@ -126,6 +132,7 @@
 				CEC17E12204A246B0075351E /* Service */,
 				CEC17E0A204A194F0075351E /* Info.plist */,
 				CEC17E10204A19880075351E /* GoogleService-Info.plist */,
+				CEEFE61720648682005FF2B4 /* BridgingHeader.h */,
 			);
 			path = LocalWeen;
 			sourceTree = "<group>";
@@ -157,6 +164,7 @@
 				CEC17E02204A194F0075351E /* Main.storyboard */,
 				CEC17E05204A194F0075351E /* Assets.xcassets */,
 				CEC17E07204A194F0075351E /* LaunchScreen.storyboard */,
+				CEEFE61A206497C5005FF2B4 /* showAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -288,6 +296,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LocalWeen/Pods-LocalWeen-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
@@ -296,6 +305,7 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
@@ -328,7 +338,10 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LocalWeen/Pods-LocalWeen-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -339,7 +352,10 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -360,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEEFE61B206497C5005FF2B4 /* showAlert.swift in Sources */,
 				CEC17E1D204A660B0075351E /* LocationDetialViewController.swift in Sources */,
 				CEF170AA205B470500A6C9A3 /* MapViewController+PlaceMarker.swift in Sources */,
 				CEC17DFF204A194E0075351E /* AppDelegate.swift in Sources */,
@@ -375,6 +392,7 @@
 				CEC17E1B204A30A30075351E /* MapViewController.swift in Sources */,
 				CE23C55B204B5B0E004E090A /* Storage.swift in Sources */,
 				CE8F651220647CCE007FE079 /* FUIAuthBaseViewController+extension.swift in Sources */,
+				CEEFE61920649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LocalWeen/LocalWeen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YYK5R5P6D3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -535,6 +554,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LocalWeen/LocalWeen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YYK5R5P6D3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

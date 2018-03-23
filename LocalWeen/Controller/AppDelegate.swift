@@ -14,6 +14,8 @@ import GooglePlaces
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
 import SwiftyBeaver
+import FBSDKLoginKit
+import FirebaseFacebookAuthUI
 
 enum ProfileSource {
     case twitter, facebook, google, none
@@ -28,6 +30,8 @@ class socialProfile{
 
 let social = socialProfile()
 let log = SwiftyBeaver.self
+let authUI = FUIAuth.defaultAuthUI()
+let common = commonUI()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Google sign in
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
+        //Facebook sign in
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
         
         return true
     }

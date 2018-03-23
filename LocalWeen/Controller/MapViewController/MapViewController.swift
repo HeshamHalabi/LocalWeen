@@ -13,9 +13,10 @@ import GoogleSignIn
 import GooglePlaces
 import SwiftyBeaver
 import MapKit
+import FirebaseAuthUI
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
-
+    
     //Map Support
     @IBOutlet weak var mapView: GMSMapView!
     var locationManager = CLLocationManager()
@@ -83,9 +84,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             }//for
             
         }//dbHandler
-        
-        //Pinch Recognizer
-        
+
         
     }//ViewDidLoad
     
@@ -134,6 +133,21 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         locationManager.stopUpdatingLocation()
         log.verbose("GIDSignIn.sharedInstance().signOut()")
         GIDSignIn.sharedInstance().signOut()
+        
+        if authUI != nil {
+            do {
+                try authUI?.signOut()
+            } catch {
+                
+                log.error("ERROR on sign out", error.localizedDescription)
+                
+                /*Possible error codes: - FIRAuthErrorCodeKeychainError Indicates an error occurred when accessing the keychain. The NSLocalizedFailureReasonErrorKey field in the NSError.userInfo dictionary will contain more information about the error encountered. */
+            }
+            
+        } else {
+            log.warning("AuthUI is nil, can't log out???")
+        }
+       
         performSegue(withIdentifier: "backToWelcome", sender: self)
     }
     

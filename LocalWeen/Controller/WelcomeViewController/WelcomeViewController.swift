@@ -11,12 +11,16 @@ import FirebaseAuth
 import SwiftyBeaver
 import FirebaseAuthUI
 import FirebaseGoogleAuthUI
+import FirebaseFacebookAuthUI
+import FBSDKLoginKit
 
 class WelcomeViewController: UIViewController, FUIAuthDelegate{
     
+    fileprivate let fbLoginButton = FBSDKLoginButton()
+
     let providers: [FUIAuthProvider] = [
         FUIGoogleAuth(),
-       // FUIFacebookAuth(),
+        FUIFacebookAuth(),
         //FUITwitterAuth(),
         //FUIPhoneAuth(authUI:FUIAuth.defaultAuthUI()),
         ]
@@ -26,9 +30,21 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let fbLoginButton = FBSDKLoginButton()
+        fbLoginButton.delegate = self
+        fbLoginButton.readPermissions = ["public_profile", "email"]
+        
+        //if user already logged in to FB, go to map
+        if FBSDKAccessToken.current() != nil{
+            log.verbose("FBSDKAccessToken.current() != nil, goToMap")
+            performSegue(withIdentifier: "toMap", sender: self)
+        }
+
+     
+        
         guard let authUI = FUIAuth.defaultAuthUI() else {
             log.error("Could not initialize Firebase Auth UI")
-            showAlert(withTitle: "Error", message: "Error getting sign in")
+            common.showAlert(withTitle: "Error", message: "Error getting sign in")
             return
         }
         
@@ -61,7 +77,7 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         if let error = error {
             log.error("A SignIn error occured", error.localizedDescription)
-            showAlert(withTitle: "SignIn ERROR", message: "There was a problem signing in, please try again or check your network connection")
+            common.showAlert(withTitle: "SignIn ERROR", message: "There was a problem signing in, please try again or check your network connection")
         }
         guard let user = user else {
             log.error("Could not get the user")
@@ -80,17 +96,10 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
             return
         }
         social.usrFirstName = displayName
-        social.usrLastName = ""
+        
         dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName, source: .google)
         performSegue(withIdentifier: "toMap", sender: self)
     }
-    
-    fileprivate func showAlert(withTitle title: String, message: String) {
-        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertView.addAction(okAction)
-        self.present(alertView, animated: true, completion: nil)
-    }//showAlert
     
 }//WelcomeViewController
 
