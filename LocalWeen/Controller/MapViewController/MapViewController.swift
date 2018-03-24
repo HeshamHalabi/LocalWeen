@@ -128,14 +128,21 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     //MARK: Sign Out
     
     @IBAction func didTapSignOut(_ sender: UIButton) {
-        log.verbose("didTapSignOut stopCamera = false")
+        log.verbose("Stop Camera")
         stopCamera = true
-        log.verbose("didTapSignOut - stopUpdatingLocation()")
+        log.verbose("Stop updating location")
         locationManager.stopUpdatingLocation()
-        log.verbose("GIDSignIn.sharedInstance().signOut()")
+        log.verbose("Log out Google")
         GIDSignIn.sharedInstance().signOut()
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
+        
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            log.error("Error signing out", signOutError.localizedDescription)
+        }
         
         if authUI != nil {
             do {

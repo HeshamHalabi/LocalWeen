@@ -13,6 +13,7 @@ import FirebaseAuthUI
 import FirebaseGoogleAuthUI
 import FirebaseFacebookAuthUI
 import FBSDKLoginKit
+import TwitterKit
 
 class WelcomeViewController: UIViewController, FUIAuthDelegate{
     
@@ -21,7 +22,7 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     let providers: [FUIAuthProvider] = [
         FUIGoogleAuth(),
         FUIFacebookAuth(),
-        //FUITwitterAuth(),
+        FUITwitterAuth(),
         //FUIPhoneAuth(authUI:FUIAuth.defaultAuthUI()),
         ]
     
@@ -30,18 +31,51 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //MARK: Facebook Button
         let fbLoginButton = FBSDKLoginButton()
         fbLoginButton.delegate = self
         fbLoginButton.readPermissions = ["public_profile", "email"]
     
-  
+        log.debug("Facebook access token is \(String(describing: FBSDKAccessToken.current() ))")
         if FBSDKAccessToken.current() != nil{
             log.verbose("Facebook token is not nil, go to map")
             performSegue(withIdentifier: "toMap", sender: self)
         }
 
+        //MARK: Twitter Button
+        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+            if (session != nil) {
+                guard (session?.authToken) != nil else {
+                    log.error("Could not get auth token")
+                    common.showAlert(withTitle: "Twitter Login", message: "There was a problem logging in, please check your network connection and try again")
+                    return
+                }
+                
+                guard (session?.authTokenSecret) != nil else {
+                     log.error("Could not get token secret for Twitter provider")
+                    common.showAlert(withTitle: "Twitter Login", message: "There was a problem logging in, please check your network connection and try again")
+                    return
+                }
+                
+                let credential = TwitterAuthProvider.credential(withToken: (session?.authToken)!, secret: (session?.authTokenSecret)!)
+                
+                //Firebase auth
+                
+                Auth.auth().signIn(with: credential) { (user, error) in
+                    if let error = error {
+                        log.error("ERROR: Could not sign in to Firebase with credential\(String(describing: error)) ")
+                        return
+                    }//error
+                        log.verbose("Succesful log")
+                }//auth
+            
+            } else {
+                log.error("Can't log in to Twitter")
+                common.showAlert(withTitle: "Twitter log in", message: "Unable to log in, please check your network connection and try again")
+            }
+        })
      
-        
+        //MARK: Firebase AuthUI
         guard let authUI = FUIAuth.defaultAuthUI() else {
             log.error("Could not initialize Firebase Auth UI")
             common.showAlert(withTitle: "Error", message: "Error getting sign in")
@@ -86,6 +120,7 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
         for data in pData {
             if data.providerID != "" {
                 social.provider = data.providerID
+                  log.verbose("Provider id \(String(describing: social.provider))")
             } else {
                 log.warning("Could not get provider id")
             }
@@ -108,17 +143,16 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
             return
         }
         social.usrEmail = email
+        log.verbose("User email \(String(describing: email))")
         
         guard let displayName = user.displayName else {
             log.warning("Could not get name for user: \(String(describing: user)) ")
             return
         }
         social.fullName = displayName
-        
-//need provider
-        
+        log.verbose("User full name \(String(describing: displayName))")
+
         dbHandler.addUser(email: social.usrEmail, fullName: social.fullName, provider: social.provider)
-        log.debug("Source Google")
         performSegue(withIdentifier: "toMap", sender: self)
     }
     

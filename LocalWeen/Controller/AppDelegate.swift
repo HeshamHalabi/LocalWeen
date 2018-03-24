@@ -16,6 +16,7 @@ import FirebaseGoogleAuthUI
 import SwiftyBeaver
 import FBSDKLoginKit
 import FirebaseFacebookAuthUI
+import TwitterKit
 
 
 class socialProfile{
@@ -50,7 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Facebook sign in
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-
+        
+        //Twitter
+        TWTRTwitter.sharedInstance().start(withConsumerKey:"kxWiv93tfNycMP41gvK7UrZIq", consumerSecret:"w6WMG7g2q7i0uqhCHRNPgWjeQRs5zAN1SMWCLQLcJQ9jUzK7Bd")
         
         return true
     }
@@ -70,10 +73,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         file.format = format
         log.addDestination(file)
 
-    }
+    }//setupSwiftyBeaverLogging
+    
     @available(iOS 9.0, *)
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let googleAuthentication = GIDSignIn.sharedInstance().handle(url, sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
-        return googleAuthentication
-    }
+        if googleAuthentication {return googleAuthentication} else {log.verbose("Not Google Auth")}
+        
+        let twitterAuthentication =  TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+        
+        if twitterAuthentication {return twitterAuthentication} else {log.verbose("Not Twitter Auth")}
+
+        return false
+        
+    }//application
+        
 }
