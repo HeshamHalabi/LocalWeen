@@ -11,12 +11,13 @@ import GoogleMaps
 import FirebaseDatabase
 import GoogleSignIn
 import GooglePlaces
-import FBSDKLoginKit
 import SwiftyBeaver
 import MapKit
+import FirebaseAuthUI
+import FBSDKLoginKit
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
-
+    
     //Map Support
     @IBOutlet weak var mapView: GMSMapView!
     var locationManager = CLLocationManager()
@@ -63,7 +64,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         //Directions button is disabled until user taps on maker
         directionsButton.isEnabled = false
@@ -85,9 +85,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             }//for
             
         }//dbHandler
-        
-        //Pinch Recognizer
-        
+
         
     }//ViewDidLoad
     
@@ -130,14 +128,42 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     //MARK: Sign Out
     
     @IBAction func didTapSignOut(_ sender: UIButton) {
-        log.verbose("didTapSignOut stopCamera = false")
+        log.verbose("stop camera")
         stopCamera = true
-        log.verbose("didTapSignOut - stopUpdatingLocation()")
+        log.verbose("Stop updating location")
         locationManager.stopUpdatingLocation()
-        log.verbose("GIDSignIn.sharedInstance().signOut()")
+        log.verbose("Google Sign out")
         GIDSignIn.sharedInstance().signOut()
-        log.verbose("FBSDKLoginManager().logOut()")
-        FBSDKLoginManager().logOut()
+        log.verbose("Facebook sign out")
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        FBSDKAccessToken.setCurrent(nil)
+        
+        log.debug("Did log out Facebook? \(String(describing: FBSDKAccessToken.current() )) nil means signed out")
+        
+        do {
+            try Auth.auth().signOut()
+            log.verbose("Firebase auth did sign out")
+        } catch {
+             log.error("ERROR on sign out", error.localizedDescription)
+        }
+        
+        if authUI != nil {
+            do {
+                try authUI?.signOut()
+                log.verbose("Auth UI did sign out")
+            } catch {
+                
+                log.error("ERROR on sign out", error.localizedDescription)
+                
+                /*Possible error codes: - FIRAuthErrorCodeKeychainError Indicates an error occurred when accessing the keychain. The NSLocalizedFailureReasonErrorKey field in the NSError.userInfo dictionary will contain more information about the error encountered. */
+            }
+            
+        } else {
+            log.warning("AuthUI is nil, can't log out???")
+        }
+        
+        performSegue(withIdentifier: "backToWelcome", sender: self)
     }
     
     //MARK: Did Tap Marker
@@ -200,4 +226,21 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 }//MapViewController
 
 
+/* I think because the google authui is in control, there is no facebook button and the below does nothing */
+
+extension MapViewController:FBSDKLoginButtonDelegate {
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil {
+            log.error("Error signing in", error.localizedDescription)
+            common.showAlert(withTitle: "Facebook", message: "There was a problem siging in, please try again or check your network connection")
+        }
+        
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        log.verbose("Facebook user logged out")
+    }
+    
+    
+}
 
