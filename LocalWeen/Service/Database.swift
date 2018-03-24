@@ -108,6 +108,7 @@ class DBHandler{
                         "rating": rating,
                         "image_name": imageName!,
                         "usrEmail": social.usrEmail,
+                        "firebaseUID": social.usrUniqueID,
                         "postDate": ServerValue.timestamp()
             ] as [String : Any]
         self.ref.childByAutoId().setValue(location)
@@ -120,6 +121,7 @@ class DBHandler{
         let userData = ["email": email,
                         "full_name": fullName,
                         "provider": provider,
+                        "firebaseUID": social.usrUniqueID,
                         "postDate": ServerValue.timestamp()
             ] as [String : Any]
         self.userRef.childByAutoId().setValue(userData)

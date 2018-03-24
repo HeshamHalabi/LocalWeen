@@ -34,6 +34,7 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
                 }//error
                 //Successful log in
                 
+                social.usrUniqueID = (Auth.auth().currentUser?.uid)!
                 log.verbose("Successful Firebase Auth")
                 
                 let params = ["fields": "email, first_name, last_name, picture"]
