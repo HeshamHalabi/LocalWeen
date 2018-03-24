@@ -30,17 +30,15 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fbLoginButton = FBSDKLoginButton()
-        fbLoginButton.delegate = self
-        fbLoginButton.readPermissions = ["public_profile", "email"]
     
-  
         if FBSDKAccessToken.current() != nil{
             log.verbose("Facebook token is not nil, go to map")
             performSegue(withIdentifier: "toMap", sender: self)
         }
 
-     
+        let fbLoginButton = FBSDKLoginButton()
+        fbLoginButton.delegate = self
+        fbLoginButton.readPermissions = ["public_profile", "email"]
         
         guard let authUI = FUIAuth.defaultAuthUI() else {
             log.error("Could not initialize Firebase Auth UI")

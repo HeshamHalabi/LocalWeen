@@ -73,13 +73,11 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
     }//loginButton
     
     func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
-        //FBSDKAccessToken.setCurrent(nil)
         log.verbose("No idea what this method does")
         return true
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        FBSDKAccessToken.setCurrent(nil)
         common.showAlert(withTitle: "Success", message: "Successfully Logged out")
     }//loginButtonDidLogOut
 }
