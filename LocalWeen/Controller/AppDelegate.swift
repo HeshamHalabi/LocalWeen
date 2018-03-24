@@ -17,15 +17,11 @@ import SwiftyBeaver
 import FBSDKLoginKit
 import FirebaseFacebookAuthUI
 
-enum ProfileSource {
-    case twitter, facebook, google, none
-}
 
 class socialProfile{
-    var usrFirstName = ""
-    var usrLastName = ""
+    var fullName = ""
     var usrEmail = ""
-    var profileSource:ProfileSource?
+    var provider = ""
 }
 
 let social = socialProfile()

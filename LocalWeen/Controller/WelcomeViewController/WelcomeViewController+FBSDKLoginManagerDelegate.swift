@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFacebookAuthUI
 import FirebaseAuthUI
 import FBSDKLoginKit
-    
+
 extension WelcomeViewController: FBSDKLoginButtonDelegate {
         
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith loginResult: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -54,22 +54,14 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
                     social.usrEmail = email as! String
                     log.verbose("Got email \(String(describing: email))")
                     
-                    guard let firstName = fields!["first_name"] else {
+                    guard let fullName = fields!["first_name"] else {
                         log.warning("Can't get first_name")
                         return
                     }
-                    social.usrFirstName = firstName as! String
-                    log.verbose("Got first_name \(String(describing: firstName))")
-                    
-                    guard let lastName = fields!["last_name"] else {
-                        log.warning("Can't get last_name")
-                        return
-                    }
-                    
-                    social.usrLastName = lastName as! String
-                    log.verbose("Got last_name \(String(describing: lastName))")
-                    
-                    self.dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName, source: .facebook )
+                    social.fullName = fullName as! String
+                    log.verbose("Got Full Name = \(fullName)")
+                  
+                    self.dbHandler.addUser(email: social.usrEmail, fullName: social.fullName, provider: social.provider )
                     
                     }//FBSDKGraphRequest
                 ) //Graph completion handler //FBSDKGraphRequest
@@ -81,12 +73,13 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
     }//loginButton
     
     func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
-        FBSDKAccessToken.setCurrent(nil)
+        //FBSDKAccessToken.setCurrent(nil)
         log.verbose("No idea what this method does")
         return true
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        FBSDKAccessToken.setCurrent(nil)
         common.showAlert(withTitle: "Success", message: "Successfully Logged out")
     }//loginButtonDidLogOut
 }

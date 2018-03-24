@@ -14,6 +14,7 @@ import GooglePlaces
 import SwiftyBeaver
 import MapKit
 import FirebaseAuthUI
+import FBSDKLoginKit
 
 class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     
@@ -133,6 +134,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         locationManager.stopUpdatingLocation()
         log.verbose("GIDSignIn.sharedInstance().signOut()")
         GIDSignIn.sharedInstance().signOut()
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
         
         if authUI != nil {
             do {

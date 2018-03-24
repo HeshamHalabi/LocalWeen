@@ -33,10 +33,10 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
         let fbLoginButton = FBSDKLoginButton()
         fbLoginButton.delegate = self
         fbLoginButton.readPermissions = ["public_profile", "email"]
-        
-        //if user already logged in to FB, go to map
+    
+  
         if FBSDKAccessToken.current() != nil{
-            log.verbose("FBSDKAccessToken.current() != nil, goToMap")
+            log.verbose("Facebook token is not nil, go to map")
             performSegue(withIdentifier: "toMap", sender: self)
         }
 
@@ -74,11 +74,29 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
         return false
     }
     
+    
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
+        
+        
+        guard let pData = user?.providerData else {
+            log.warning("Can't get provider data")
+            return
+        }
+        
+        for data in pData {
+            if data.providerID != "" {
+                social.provider = data.providerID
+            } else {
+                log.warning("Could not get provider id")
+            }
+            
+        }//data
+        
         if let error = error {
             log.error("A SignIn error occured", error.localizedDescription)
             common.showAlert(withTitle: "SignIn ERROR", message: "There was a problem signing in, please try again or check your network connection")
         }
+        
         guard let user = user else {
             log.error("Could not get the user")
             return
@@ -90,14 +108,17 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
             return
         }
         social.usrEmail = email
-        social.profileSource = .google
+        
         guard let displayName = user.displayName else {
             log.warning("Could not get name for user: \(String(describing: user)) ")
             return
         }
-        social.usrFirstName = displayName
+        social.fullName = displayName
         
-        dbHandler.addUser(email: social.usrEmail, firstName: social.usrFirstName, lastName: social.usrLastName, source: .google)
+//need provider
+        
+        dbHandler.addUser(email: social.usrEmail, fullName: social.fullName, provider: social.provider)
+        log.debug("Source Google")
         performSegue(withIdentifier: "toMap", sender: self)
     }
     

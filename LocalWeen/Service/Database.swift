@@ -28,11 +28,11 @@ class DBHandler{
                         //Get the latitude and longitude for matching
                         guard let latitude = data["latitude"] else {
                             
-                            SwiftyBeaver.warning("DBHandler Could not get lattitude in getFor request")
+                            log.warning("DBHandler Could not get lattitude in getFor request")
                             return
                         }
                         guard let longitude = data["longitude"] else {
-                             SwiftyBeaver.warning("DBHandler Could not get longitude in getFor request")
+                             log.warning("DBHandler Could not get longitude in getFor request")
                             return
                         }
                     
@@ -49,7 +49,7 @@ class DBHandler{
                            
                             case "fileNames":
                                 guard let filename = data["image_name"] else {
-                                   SwiftyBeaver.warning("DBHandler Can't get filename for image")
+                                   log.warning("DBHandler Can't get filename for image")
                                     return
                                 }
                                 if isMatch {
@@ -59,7 +59,7 @@ class DBHandler{
                             case "ratings":
                             
                                 guard let ratingData = data["rating"] else {
-                                    SwiftyBeaver.warning("DBHandler Can't get ratingData")
+                                    log.warning("DBHandler Can't get ratingData")
                                     return
                                 }
                                 
@@ -69,7 +69,7 @@ class DBHandler{
                                     if rating >= 1.0 {
                                         ratings.append(rating)
                                     } else {
-                                        SwiftyBeaver.warning("DBHandler ratingData Rating was less than 1")
+                                       log.warning("DBHandler ratingData Rating was less than 1")
                                     }
                                     ratings.append(rating)
                                 }//isMatch
@@ -111,31 +111,20 @@ class DBHandler{
                         "postDate": ServerValue.timestamp()
             ] as [String : Any]
         self.ref.childByAutoId().setValue(location)
-        SwiftyBeaver.verbose("Location data is: \(String(describing: location))")
+        log.verbose("Location data is: \(String(describing: location))")
     }//end setLocation
     
-    func addUser(email: String, firstName: String, lastName: String, source: ProfileSource){
+    func addUser(email: String, fullName: String, provider: String){
         
-        var sourceRecord = String()
-        
-        switch source {
-        case .google:
-            sourceRecord = "google"
-        case .facebook:
-            sourceRecord = "facebook"
-        case .twitter:
-            sourceRecord = "twitter"
-        default:
-            sourceRecord = "email"
-        }
         
         let userData = ["email": email,
-                        "first_name": firstName,
-                        "last_name": lastName,
-                        "source": sourceRecord
-        ]
+                        "full_name": fullName,
+                        "provider": provider,
+                        "postDate": ServerValue.timestamp()
+            ] as [String : Any]
         self.userRef.childByAutoId().setValue(userData)
-        SwiftyBeaver.verbose("addUser \(String(describing: userData))")
+        log.debug("Provider = \(provider)")
+        log.verbose("addUser \(String(describing: userData))")
     }//addUser
     
 }//DBHandler
