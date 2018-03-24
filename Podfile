@@ -8,20 +8,21 @@ target 'LocalWeen' do
   # Pods for LocalWeen
   
   #Cosmos Pod
-  pod 'Cosmos', '~> 15.0'
+  pod 'Cosmos'
 
   #SwiftBeaver
   pod 'SwiftyBeaver'
   
   # Google Pods
-   pod 'GoogleMaps'
-   pod 'Firebase/Database'
-   pod 'Firebase/Storage'
-   pod 'Firebase/Core'
-   pod 'Firebase/Auth'
-   pod 'GoogleSignIn'
-   pod 'FirebaseUI/Storage'
-   pod 'GooglePlaces'
+  pod 'GoogleMaps'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'FirebaseUI/Storage'
+  pod 'GooglePlaces'
+  pod 'FirebaseUI/Facebook'
+  pod 'FirebaseUI/Google'
    
    #Facebook
    pod 'FBSDKLoginKit'
