@@ -39,7 +39,10 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
         let fbLoginButton = FBSDKLoginButton()
         fbLoginButton.delegate = self
         fbLoginButton.readPermissions = ["public_profile", "email"]
-        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         guard let authUI = FUIAuth.defaultAuthUI() else {
             log.error("Could not initialize Firebase Auth UI")
             common.showAlert(withTitle: "Error", message: "Error getting sign in")
@@ -56,8 +59,8 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
         
         let authViewController = authUI.authViewController()
         self.present(authViewController, animated: true, completion: nil)
-       
     }
+    
     
     func application(_ app: UIApplication, open url: URL,
                      options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
