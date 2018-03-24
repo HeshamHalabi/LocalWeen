@@ -78,7 +78,13 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         
+        guard let uid = user?.uid else {
+            log.warning("Can't get user Firebase unique id")
+            return
+        }
         
+        social.usrUniqueID = uid
+
         guard let pData = user?.providerData else {
             log.warning("Can't get provider data")
             return

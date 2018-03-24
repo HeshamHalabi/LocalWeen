@@ -22,6 +22,7 @@ class socialProfile{
     var fullName = ""
     var usrEmail = ""
     var provider = ""
+    var usrUniqueID = ""
 }
 
 let social = socialProfile()
