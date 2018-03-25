@@ -128,6 +128,6 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
         log.debug("Source Google")
         performSegue(withIdentifier: "toMap", sender: self)
     }
-    
+
 }//WelcomeViewController
 
