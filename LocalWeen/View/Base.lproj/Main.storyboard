@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="30p-9d-gVu">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vgz-g3-S35">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,11 +16,11 @@
             <objects>
                 <viewController id="7wn-tL-CSG" userLabel="Legal" customClass="LegalViewController" customModule="LocalWeen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hb2-hP-iED">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nd1-dE-tDh">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -50,18 +50,18 @@
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="Ldp-YH-622" userLabel="Map" customClass="MapViewController" customModule="LocalWeen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M3U-ag-wsu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rrp-kk-jgr" userLabel="Map" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="617"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="704"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="dc7-Zt-W5f" appends="YES" id="X4n-nZ-vQz"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wrf-3v-3A8" userLabel="Menu">
-                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="748" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZX-Gr-f0a" userLabel="LocDetail">
                                         <rect key="frame" x="176" y="0.0" width="22" height="30"/>
@@ -132,18 +132,18 @@
             <objects>
                 <viewController id="NPJ-QS-Arv" userLabel="Detail" customClass="LocationDetialViewController" customModule="LocalWeen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Xg-NG-fXF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-L3-sL5">
-                                <rect key="frame" x="147" y="25" width="80" height="80"/>
+                                <rect key="frame" x="147" y="49" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="WDM-8C-mod"/>
                                     <constraint firstAttribute="width" constant="80" id="k3S-iP-L8I"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-aP-d3g">
-                                <rect key="frame" x="0.0" y="105" width="375" height="25"/>
+                                <rect key="frame" x="0.0" y="129" width="375" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="gIf-lB-e7g"/>
                                 </constraints>
@@ -152,7 +152,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-vX-imb" userLabel="Ratings" customClass="CosmosView" customModule="Cosmos">
-                                <rect key="frame" x="136" y="135" width="104" height="25"/>
+                                <rect key="frame" x="136" y="159" width="104" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="B5o-mM-uMW"/>
@@ -195,7 +195,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYZ-ve-2J2" userLabel="Av">
-                                <rect key="frame" x="153" y="165" width="70" height="20"/>
+                                <rect key="frame" x="153" y="189" width="70" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="LhI-by-9dy"/>
                                     <constraint firstAttribute="width" constant="70" id="Nsg-dc-lBl"/>
@@ -205,7 +205,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Pj-Iw-mT3" userLabel="Menu">
-                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="748" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xiy-hP-tDB">
                                         <rect key="frame" x="13" y="8" width="50" height="14"/>
@@ -285,30 +285,12 @@
             </objects>
             <point key="canvasLocation" x="2290" y="109"/>
         </scene>
-        <!--Main Nav-->
-        <scene sceneID="h1J-j5-2CQ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="30p-9d-gVu" userLabel="Main Nav" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AWM-OQ-4DC">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="vgz-g3-S35" kind="relationship" relationship="rootViewController" id="RCg-8h-QUB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MVc-Ex-J9N" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-266" y="116"/>
-        </scene>
         <!--Welcome-->
         <scene sceneID="7Um-HX-OQ0">
             <objects>
                 <viewController id="vgz-g3-S35" userLabel="Welcome" customClass="WelcomeViewController" customModule="LocalWeen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0oq-ZY-pmZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4zp-IM-imd"/>
@@ -324,7 +306,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2L4-5e-zHt"/>
         <segue reference="vLr-oj-7sU"/>
     </inferredMetricsTieBreakers>
 </document>
