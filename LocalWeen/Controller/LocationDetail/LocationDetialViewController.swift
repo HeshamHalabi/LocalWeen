@@ -19,6 +19,8 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     let dbHandler = DBHandler()
     let storageHandler = StorageHandler()
     let locationManager = CLLocationManager()
+    var currentImage = 0
+    var photos = [UIImage?]()
 
     
     //Outlets
@@ -26,23 +28,43 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cosmosView: CosmosView!
     @IBOutlet weak var userChosenPhotoFromGalleryOrCamera: UIImageView!
-    
     @IBOutlet weak var avLabel: UILabel!
+    @IBOutlet weak var existingPhotos: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cosmosView.rating = 0
-        reverseGeocodeCoordinate(coord!)
-        getLocationPhotos(coordinate: coord!)
         
+        reverseGeocodeCoordinate(coord!)
+        
+        //MARK: Cosmos Setup
         if cosmosView.rating <= 0  {
             saveButton.isEnabled = false
         }//if
+        
+        
+        cosmosView.rating = 0
         cosmosView.didFinishTouchingCosmos = didFinishTouchingCosmos
         cosmosView.didTouchCosmos = didTouchCosmos
+        
+        //MARK: Photos setup
+        
+        getLocationPhotos(coordinate: coord!)
         picker?.delegate = self
         userChosenPhotoFromGalleryOrCamera.isHidden = true
         averageRating(coordinate: coord!)
+        
+        //MARK: Swipe setup
+    
+        let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(imageSwiped(gestureRecognizer:)))
+        leftSwipeGesture.direction = UISwipeGestureRecognizerDirection.left
+        existingPhotos.isUserInteractionEnabled = true
+        existingPhotos.addGestureRecognizer(leftSwipeGesture)
+        
+        let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(imageSwiped(gestureRecognizer:)))
+        rightSwipeGesture.direction = UISwipeGestureRecognizerDirection.right
+        existingPhotos.addGestureRecognizer(rightSwipeGesture)
+
         
     }//viewDidLoad
     
@@ -88,7 +110,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     
     
     @IBAction func photoButton(_ sender: UIButton) {
-        let actionSheet = UIAlertController(title: String.kPhotoSource, message: String.kPhotoSourceChoice, preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Source", message: String.kPhotoSourceChoice, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: String.kCameraText, style: .default, handler: { (action:UIAlertAction) in
             self.openCamera()
         }))
@@ -112,8 +134,5 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         }//dbHandler
     }//getLocationPhotos
     
-    /*
-      errors encountered while discovering extensions: Error Domain=PlugInKit Code=13 "query cancelled"
- */
     
 }//LocationDetailViewController

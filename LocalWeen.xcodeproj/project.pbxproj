@@ -22,6 +22,7 @@
 		CEC17E1B204A30A30075351E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC17E1A204A30A30075351E /* MapViewController.swift */; };
 		CEC17E1D204A660B0075351E /* LocationDetialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC17E1C204A660B0075351E /* LocationDetialViewController.swift */; };
 		CEE7ED8D206973D500A205F4 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7ED8C206973D500A205F4 /* Statics.swift */; };
+		CEE7ED8F2069A75400A205F4 /* LocationDetailViewController+LocationPhotoSwiping.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7ED8E2069A75400A205F4 /* LocationDetailViewController+LocationPhotoSwiping.swift */; };
 		CEEFE61920649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEFE61820649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift */; };
 		CEEFE61B206497C5005FF2B4 /* showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEFE61A206497C5005FF2B4 /* showAlert.swift */; };
 		CEF1145320576A7200001525 /* LocationDetialViewController+Ratings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF1145220576A7100001525 /* LocationDetialViewController+Ratings.swift */; };
@@ -53,6 +54,7 @@
 		CEC17E1A204A30A30075351E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CEC17E1C204A660B0075351E /* LocationDetialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetialViewController.swift; sourceTree = "<group>"; };
 		CEE7ED8C206973D500A205F4 /* Statics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Statics.swift; path = LocalWeen/Statics.swift; sourceTree = SOURCE_ROOT; };
+		CEE7ED8E2069A75400A205F4 /* LocationDetailViewController+LocationPhotoSwiping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetailViewController+LocationPhotoSwiping.swift"; sourceTree = "<group>"; };
 		CEEFE61720648682005FF2B4 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		CEEFE61820649083005FF2B4 /* WelcomeViewController+FBSDKLoginManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeViewController+FBSDKLoginManagerDelegate.swift"; sourceTree = "<group>"; };
 		CEEFE61A206497C5005FF2B4 /* showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showAlert.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				CEF1145620576ED600001525 /* LocationDetailViewController+Camera.swift */,
 				CEF1145420576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift */,
 				CEF1145220576A7100001525 /* LocationDetialViewController+Ratings.swift */,
+				CEE7ED8E2069A75400A205F4 /* LocationDetailViewController+LocationPhotoSwiping.swift */,
 			);
 			path = LocationDetail;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				CEF170A8205B457C00A6C9A3 /* MapViewController+CLLocationManagerDelegate.swift in Sources */,
 				CEC17E17204A27240075351E /* WelcomeViewController.swift in Sources */,
 				CEF1145720576ED600001525 /* LocationDetailViewController+Camera.swift in Sources */,
+				CEE7ED8F2069A75400A205F4 /* LocationDetailViewController+LocationPhotoSwiping.swift in Sources */,
 				CE828FEF2059E4D30027B06C /* MapViewController+SearchBar.swift in Sources */,
 				CE23C559204B4B32004E090A /* Database.swift in Sources */,
 				CEF1145520576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift in Sources */,

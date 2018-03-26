@@ -204,6 +204,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ddw-LX-meU" userLabel="LocPhotos">
+                                <rect key="frame" x="62" y="399" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="bGQ-mu-upP"/>
+                                    <constraint firstAttribute="height" constant="250" id="eKo-KK-eAs"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Pj-Iw-mT3" userLabel="Menu">
                                 <rect key="frame" x="0.0" y="748" width="375" height="30"/>
                                 <subviews>
@@ -259,7 +266,9 @@
                             <constraint firstItem="8pv-L3-sL5" firstAttribute="centerX" secondItem="8Xg-NG-fXF" secondAttribute="centerX" id="Cd2-G7-0QU"/>
                             <constraint firstItem="8Pj-Iw-mT3" firstAttribute="leading" secondItem="trj-j0-NGq" secondAttribute="leading" id="Lxz-ht-yok"/>
                             <constraint firstItem="lbh-aP-d3g" firstAttribute="leading" secondItem="trj-j0-NGq" secondAttribute="leading" id="OxL-bC-o6y"/>
+                            <constraint firstItem="ddw-LX-meU" firstAttribute="top" secondItem="TYZ-ve-2J2" secondAttribute="top" constant="20" id="PSo-Eb-q1M"/>
                             <constraint firstItem="lbh-aP-d3g" firstAttribute="trailing" secondItem="trj-j0-NGq" secondAttribute="trailing" id="Qgq-87-MMg"/>
+                            <constraint firstItem="ddw-LX-meU" firstAttribute="centerX" secondItem="8Xg-NG-fXF" secondAttribute="centerX" id="aWJ-z7-e9s"/>
                             <constraint firstItem="TYZ-ve-2J2" firstAttribute="top" secondItem="A7i-vX-imb" secondAttribute="bottom" constant="5" id="cQn-mR-e4k"/>
                             <constraint firstItem="8Pj-Iw-mT3" firstAttribute="trailing" secondItem="trj-j0-NGq" secondAttribute="trailing" id="eoz-Gl-bIZ"/>
                             <constraint firstItem="A7i-vX-imb" firstAttribute="centerX" secondItem="lbh-aP-d3g" secondAttribute="centerX" id="kw2-Rv-pn1"/>
@@ -276,6 +285,7 @@
                         <outlet property="addressLabel" destination="lbh-aP-d3g" id="Sb9-9e-MZN"/>
                         <outlet property="avLabel" destination="TYZ-ve-2J2" id="hHF-2E-INw"/>
                         <outlet property="cosmosView" destination="A7i-vX-imb" id="7Rp-4s-ukM"/>
+                        <outlet property="existingPhotos" destination="ddw-LX-meU" id="UuA-qB-dtR"/>
                         <outlet property="saveButton" destination="xiy-hP-tDB" id="FTC-zd-kHn"/>
                         <outlet property="userChosenPhotoFromGalleryOrCamera" destination="8pv-L3-sL5" id="Zo2-R3-6yd"/>
                         <segue destination="Ldp-YH-622" kind="show" identifier="backToMap" id="ffd-Mp-pkl"/>
