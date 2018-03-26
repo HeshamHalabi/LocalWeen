@@ -135,15 +135,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-L3-sL5">
-                                <rect key="frame" x="147" y="49" width="80" height="80"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8pv-L3-sL5">
+                                <rect key="frame" x="62" y="49" width="250" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="WDM-8C-mod"/>
-                                    <constraint firstAttribute="width" constant="80" id="k3S-iP-L8I"/>
+                                    <constraint firstAttribute="height" constant="250" id="WDM-8C-mod"/>
+                                    <constraint firstAttribute="width" constant="250" id="k3S-iP-L8I"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-aP-d3g">
-                                <rect key="frame" x="0.0" y="129" width="375" height="25"/>
+                                <rect key="frame" x="0.0" y="319" width="375" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="gIf-lB-e7g"/>
                                 </constraints>
@@ -152,7 +152,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-vX-imb" userLabel="Ratings" customClass="CosmosView" customModule="Cosmos">
-                                <rect key="frame" x="136" y="159" width="104" height="25"/>
+                                <rect key="frame" x="136" y="349" width="104" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="B5o-mM-uMW"/>
@@ -194,11 +194,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYZ-ve-2J2" userLabel="Av">
-                                <rect key="frame" x="153" y="189" width="70" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYZ-ve-2J2" userLabel="Av">
+                                <rect key="frame" x="88" y="379" width="200" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="LhI-by-9dy"/>
-                                    <constraint firstAttribute="width" constant="70" id="Nsg-dc-lBl"/>
+                                    <constraint firstAttribute="width" constant="200" id="Nsg-dc-lBl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
@@ -232,7 +232,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="sAZ-oa-abK"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="Removal Request"/>
                                         <connections>
                                             <segue destination="7wn-tL-CSG" kind="show" id="z6o-t9-nyD"/>
@@ -265,7 +265,7 @@
                             <constraint firstItem="A7i-vX-imb" firstAttribute="centerX" secondItem="lbh-aP-d3g" secondAttribute="centerX" id="kw2-Rv-pn1"/>
                             <constraint firstItem="8Pj-Iw-mT3" firstAttribute="bottom" secondItem="trj-j0-NGq" secondAttribute="bottom" id="m4t-uM-nxX"/>
                             <constraint firstItem="8pv-L3-sL5" firstAttribute="top" secondItem="trj-j0-NGq" secondAttribute="top" constant="5" id="q5T-YT-nZP"/>
-                            <constraint firstItem="lbh-aP-d3g" firstAttribute="top" secondItem="8pv-L3-sL5" secondAttribute="bottom" id="r2y-0D-c7v"/>
+                            <constraint firstItem="lbh-aP-d3g" firstAttribute="top" secondItem="8pv-L3-sL5" secondAttribute="bottom" constant="20" id="r2y-0D-c7v"/>
                             <constraint firstItem="A7i-vX-imb" firstAttribute="top" secondItem="lbh-aP-d3g" secondAttribute="bottom" constant="5" id="sep-Mh-rl0"/>
                             <constraint firstItem="TYZ-ve-2J2" firstAttribute="centerX" secondItem="A7i-vX-imb" secondAttribute="centerX" id="tY9-rA-9gO"/>
                         </constraints>
@@ -306,6 +306,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vLr-oj-7sU"/>
+        <segue reference="ffd-Mp-pkl"/>
     </inferredMetricsTieBreakers>
 </document>
