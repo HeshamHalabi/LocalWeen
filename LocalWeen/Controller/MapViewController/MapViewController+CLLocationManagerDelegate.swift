@@ -12,11 +12,8 @@ import SwiftyBeaver
 
 extension MapViewController {
     func startUpLocationManager(){
-        log.verbose("startUpLocationManager()")
         //Location Manager and Map View Delegate
-        log.verbose("locationManager.requestWhenInUseAuthorization()")
         self.locationManager.requestWhenInUseAuthorization()
-        log.verbose("locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation")
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.startUpdatingLocation()
         self.locationManager.activityType = .automotiveNavigation
@@ -27,7 +24,7 @@ extension MapViewController {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse else {
-            log.info("authorizedWhenInUse = \(String(describing: status ))")
+            log.verbose("authorizedWhenInUse = \(String(describing: status ))")
             self.mapView.settings.myLocationButton = true
             return
         }
@@ -35,19 +32,17 @@ extension MapViewController {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else {
-            log.warning("Could not get user location")
+            log.warning(String.warningGet + "user location")
             return
         }
         
-        log.info("locationManager didUpdateLocation to \(String(describing: location))")
+        log.verbose("\(String(describing: location))")
 
         if stopCamera {
             log.verbose("stopCamera = \(String(describing: stopCamera))")
-            log.info("The user pinched on map, so camera is not going to change positions.  Place the marker")
-            print("Stop camera")
             self.placeMarker(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, imageName: userMarkerImage)
         } else {
-            log.info("User did not pinch on map, so move the camera and place marker")
+            log.verbose("User did not pinch on map, so move the camera and place marker")
             self.mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             
             self.placeMarker(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, imageName: userMarkerImage)
@@ -58,13 +53,13 @@ extension MapViewController {
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        log.info("Location Manager has PAUSED location updates to save battery")
-        log.info("Lowering desiredAccuracy to kCLLocationAccuracyHundredMeters")
+        log.verbose("Location Manager has PAUSED location updates to save battery")
+        log.verbose("Lowering desiredAccuracy to kCLLocationAccuracyHundredMeters")
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager){
-        log.info("Location Manager has RESUMED location updates to save battery")
+        log.verbose("Location Manager has RESUMED location updates to save battery")
          self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
 }

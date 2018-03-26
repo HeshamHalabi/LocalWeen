@@ -58,11 +58,11 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     
     
     @IBAction func saveButton(_ sender: UIButton) {
-        let actionSheet = UIAlertController(title: "Save Agreement", message: "You certify that you are not submitting a location for any illegal or unethical reason.  You agree to the application Terms of Service", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: String.kAgreementTitle, message: String.kAgreementDetails, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Agree - Save", style: .default, handler: { (action:UIAlertAction) in
            //Save the data
             guard let coordinate = self.coord else {
-                log.error("Can't get coordinate")
+                log.error(String.errorGet + "self.coord")
                 return
             }//guard
             
@@ -74,11 +74,11 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
                 //don't upload an image, just save the location rating and coord
                 self.dbHandler.addLocation(coordinate: coordinate, rating: self.cosmosView.rating, imageName: "")
             }//else
-            self.performSegue(withIdentifier: "backToMap", sender: self.saveButton)
+            self.performSegue(withIdentifier: String.kSegueBACKToMap, sender: self.saveButton)
             
         }))
         actionSheet.addAction(UIAlertAction(title: "Disagree - Cancel", style: .cancel, handler: { (action) in
-             self.performSegue(withIdentifier: "backToMap", sender: self.saveButton)
+             self.performSegue(withIdentifier: String.kSegueBACKToMap, sender: self.saveButton)
         }))
         
         
@@ -88,12 +88,12 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     
     
     @IBAction func photoButton(_ sender: UIButton) {
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
+        let actionSheet = UIAlertController(title: String.kPhotoSource, message: String.kPhotoSourceChoice, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: String.kCameraText, style: .default, handler: { (action:UIAlertAction) in
             self.openCamera()
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Library", style: .default, handler: { (action:UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: String.kPhotoLibraryText, style: .default, handler: { (action:UIAlertAction) in
             self.openGallary()
         }))
         
@@ -105,7 +105,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     
     //MARK: Get Location Photos
     func getLocationPhotos(coordinate:CLLocationCoordinate2D){
-        dbHandler.getFor(coordinateIn: coordinate, what: "fileNames") { (fileNames) in
+        dbHandler.getFor(coordinateIn: coordinate, what: "filename") { (fileNames) in
             for file in fileNames{
                 log.verbose("\(String(describing: file))")
             }//for

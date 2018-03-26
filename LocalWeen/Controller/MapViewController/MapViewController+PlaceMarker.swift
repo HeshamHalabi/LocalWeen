@@ -14,7 +14,7 @@ extension MapViewController {
     func placeMarker(latitude: Double, longitude:Double, imageName: String){
         
         if imageName == userMarkerImage {
-            log.verbose("placeMarker: imageName == userMarkerImage: \(String(describing: userMarkerImage))")
+            log.verbose("userMarkerImage: \(String(describing: userMarkerImage))")
             
             userMarker.map = self.mapView
             
@@ -30,7 +30,7 @@ extension MapViewController {
             myMarker.map = self.mapView
             myMarker.icon = UIImage(named: imageName)
             myMarker.position = CLLocationCoordinate2DMake(latitude, longitude)
-            log.verbose("Placing marker \(String(describing: imageName)) \(String(describing: myMarker.position ))")
+            log.verbose(String.complete +  "marker \(String(describing: imageName)) \(String(describing: myMarker.position ))")
 
         }
     }//placeMarker

@@ -17,50 +17,49 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith loginResult: FBSDKLoginManagerLoginResult!, error: Error!) {
         
         if error != nil {
-            common.showAlert(withTitle: "Error", message: "Problem logging in, please try again or check your network connection")
-            log.error("Error with Facebook login \(String(describing: error.localizedDescription))")
+            common.showAlert(withTitle: .errorGeneral, message: .kSignInError)
+            log.error(String.errorGeneral + "\(String(describing: error.localizedDescription))")
         } else if loginResult.isCancelled {
-            log.verbose("loginResult.isCancelled")
             return
         } else {
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             
             Auth.auth().signIn(with: credential) { (user, error) in
                 if let error = error {
-                    common.showAlert(withTitle: "Error", message: error as! String)
-                    log.error("Error authorizing with Firebase", error as! String)
+                    common.showAlert(withTitle: .errorGeneral, message: error as! String)
+                    log.error(String.errorGeneral, error as! String)
                     
                     return
                 }//error
                 //Successful log in
                 
                 social.usrUniqueID = (Auth.auth().currentUser?.uid)!
-                log.verbose("Successful Firebase Auth")
+                log.verbose(String.complete)
                 
-                let params = ["fields": "email, first_name, last_name, picture"]
-                FBSDKGraphRequest(graphPath: "me", parameters: params).start(completionHandler: { connection, graphResult, error in
+                let params = String.kFBDetailPermissions
+                    FBSDKGraphRequest(graphPath: "me", parameters: params).start(completionHandler: { connection, graphResult, error in
                     if let error = error {
-                        log.error("Error getting FB social info \(String(describing: error))")
+                        log.error(String.errorGet +  "\(String(describing: error))")
                         return
                     }//error
                     let fields = graphResult as? [String:Any]
                     
                     log.verbose("\(String(describing: fields))")
                     
-                    guard let email = fields!["email"] else {
-                        log.warning("Can't get email")
+                    guard let email = fields![String.kEmail] else {
+                        log.warning(String.warningGeneral)
                         return
                     }
                     
                     social.usrEmail = email as! String
-                    log.verbose("Got email \(String(describing: email))")
+                    log.verbose(String.complete + "\(String(describing: email))")
                     
-                    guard let fullName = fields!["first_name"] else {
-                        log.warning("Can't get first_name")
+                    guard let fullName = fields![String.kFirstName] else {
+                        log.warning(String.warningGet + String.kFirstName)
                         return
                     }
                     social.fullName = fullName as! String
-                    log.verbose("Got Full Name = \(fullName)")
+                    log.verbose(String.complete + "\(fullName)")
                   
                     self.dbHandler.addUser(email: social.usrEmail, fullName: social.fullName, provider: social.provider )
                     
@@ -69,7 +68,7 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
             }//Auth
         }//else
         
-        performSegue(withIdentifier: "toMap", sender:self)
+        performSegue(withIdentifier: .kSegueToMap, sender:self)
         
     }//loginButton
     
@@ -79,7 +78,7 @@ extension WelcomeViewController: FBSDKLoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        common.showAlert(withTitle: "Success", message: "Successfully Logged out")
+        common.showAlert(withTitle: .complete, message: "Successfully Logged out")
     }//loginButtonDidLogOut
 }
 

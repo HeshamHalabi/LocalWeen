@@ -16,7 +16,7 @@ import SwiftyBeaver
 struct StorageHandler {
     
     private var imageData = Data()
-    private let childName:String = "images"
+    private let childName:String = String.kImageName
     
     private var imageReference: StorageReference {
         return Storage.storage().reference().child(childName)
@@ -28,25 +28,25 @@ struct StorageHandler {
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return "" }
         
         let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
+        metadata.contentType = String.kMetaImgFormat
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM_DD_yyyy_hh_mm_ss"
+        formatter.dateFormat = String.kdateFormat
         let filename = "\(formatter.string(from: NSDate() as Date)).jpg"
         let uploadImageRef = imageReference.child(filename)
         
         
         let uploadTask = uploadImageRef.putData(imageData, metadata: metadata) { (metadata, error) in
             if metadata == nil{
-                SwiftyBeaver.error("Missing image metadata")
+                SwiftyBeaver.error(String.errorSet + "metadata is nil")
             }
             if error != nil {
-                SwiftyBeaver.error("uploadTask had an error \(String(describing: error))")
+                SwiftyBeaver.error( String.errorSet + "\(String(describing: error))")
             }
             
         }
         
         uploadTask.observe(.progress) { (snapshot) in
-            SwiftyBeaver.verbose(print(snapshot.progress ?? "NO MORE PROGRESS"))
+            SwiftyBeaver.verbose(print(snapshot.progress ?? log.verbose(String.complete)))
         }
         
         uploadTask.resume()
