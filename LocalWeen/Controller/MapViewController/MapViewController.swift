@@ -29,10 +29,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     
     //Constants
     let zoom:Float = 15
-    let locationOfInterestImage = "hhouseicon"
-    let userMarkerImage = "witchicon"
-    let questionMarker = "questionMapMaker"
-    
+    let locationOfInterestImage = String.locationOfInterestImageName
+    let userMarkerImage = String.userMarkerImageName
+    let questionMarker = String.possibleAdd
     //Search Bar Support
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
@@ -145,16 +144,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
             try Auth.auth().signOut()
             log.verbose("Firebase auth did sign out")
         } catch {
-             log.error("ERROR on sign out", error.localizedDescription)
+             log.error(String.errorGeneral, error.localizedDescription)
         }
         
         if authUI != nil {
             do {
                 try authUI?.signOut()
-                log.verbose("Auth UI did sign out")
+                log.verbose(String.complete)
             } catch {
                 
-                log.error("ERROR on sign out", error.localizedDescription)
+                log.error(String.errorGeneral + error.localizedDescription)
                 
                 /*Possible error codes: - FIRAuthErrorCodeKeychainError Indicates an error occurred when accessing the keychain. The NSLocalizedFailureReasonErrorKey field in the NSError.userInfo dictionary will contain more information about the error encountered. */
             }
@@ -169,13 +168,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     //MARK: Did Tap Marker
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        log.info("Setting stopCamera true when marker tapped so camera is at marker and not following user")
         stopCamera = true
         locationManager.stopUpdatingLocation()
         directionsButton.isEnabled = true
         segueWhat = dataToSegue.tappedMarker
         self.tappedMarkerLocation = marker.position
-        performSegue(withIdentifier: "toDetail", sender: self)
+        performSegue(withIdentifier: String.kSegueToLocationDetails, sender: self)
         return false
     }
     
@@ -191,19 +189,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
     }
     
     @IBAction func didTapDirections(_ sender: UIButton) {
-        log.info("Setting stopCamera = true user asked for directions, so stop following user on map")
         stopCamera = true
         directionsButton.isEnabled = false
         guard let from = locationManager.location?.coordinate else {
-            log.warning("Could not get user's current location for driving directions")
+            log.warning(String.warningGet + "locationManager.location?.coordinate")
             return
         }
         
         let to = self.tappedMarkerLocation
         
         log.info("Directions from \(String(describing: from)) , to \(String(describing: tappedMarkerLocation))")
-        let url = "http://maps.apple.com/maps?saddr=\(from.latitude),\(from.longitude)&daddr=\(to.latitude),\(to.longitude)"
-        //UIApplication.shared.openURL(URL(string:url)!)
+        let url = String.kAppleMapsURL + "\(from.latitude),\(from.longitude)&daddr=\(to.latitude),\(to.longitude)"
         let regionDistance:CLLocationDistance = 1000
         let regionSpan = MKCoordinateRegionMakeWithDistance(tappedMarkerLocation, regionDistance, regionDistance)
         var options = [String : Any]()
@@ -214,9 +210,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         
         UIApplication.shared.open(URL(string:url)!, options: options) { (finished) in
             if finished {
-                log.info("Setting stopCamera to false because we are done with the external map and perhaps we need to follow the user with the camera")
                 self.stopCamera = true
-                log.info("Done opening Maps = \(String(describing: finished))")
+                log.info(String.complete + "\(String(describing: finished))")
             }
         }
     }
@@ -231,14 +226,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
 extension MapViewController:FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         if error != nil {
-            log.error("Error signing in", error.localizedDescription)
-            common.showAlert(withTitle: "Facebook", message: "There was a problem siging in, please try again or check your network connection")
+            log.error(String.errorGeneral +  error.localizedDescription)
+            common.showAlert(withTitle: "Facebook", message: .kSignInError)
         }
         
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        log.verbose("Facebook user logged out")
+        log.verbose(String.complete)
     }
     
     

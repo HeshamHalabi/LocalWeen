@@ -17,7 +17,7 @@ class LegalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL (string: "https://sites.google.com/view/localween/home/legal")
+        let url = NSURL (string: .AppWebSiteURL)
         let request = NSURLRequest(url: url! as URL)
         webView.load(request as URLRequest)
     }

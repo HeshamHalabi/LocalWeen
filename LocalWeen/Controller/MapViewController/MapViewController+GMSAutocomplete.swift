@@ -28,12 +28,12 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
         resultMarker.position = place.coordinate
         self.mapView.camera = GMSCameraPosition(target: place.coordinate, zoom: zoom, bearing: 0, viewingAngle: 0)
         
-        log.verbose("searchCoordinates \(String(describing: singleSearchResult ))")
+        log.verbose("\(String(describing: singleSearchResult ))")
     }
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didFailAutocompleteWithError error: Error){
-        log.error("Error", error.localizedDescription )
+        log.error( String.errorGeneral + error.localizedDescription )
     }
     
     // Turn the network activity indicator on and off again.

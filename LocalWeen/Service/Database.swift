@@ -12,8 +12,9 @@ import SwiftyBeaver
 
 
 class DBHandler{
-    var ref:DatabaseReference! = Database.database().reference().child("locations")
-    var userRef:DatabaseReference! = Database.database().reference().child("users")
+ 
+    var ref:DatabaseReference! = Database.database().reference().child(.locationsChild)
+    var userRef:DatabaseReference! = Database.database().reference().child(.usersChild)
     
     func getFor(coordinateIn:CLLocationCoordinate2D?, what: String, completion: @escaping ([Any]) -> ())  {
         
@@ -26,13 +27,13 @@ class DBHandler{
                 for snap in snapshot {
                     if let data = snap.value as? [String:Any]{
                         //Get the latitude and longitude for matching
-                        guard let latitude = data["latitude"] else {
+                        guard let latitude = data[.kLattitude] else {
                             
-                            log.warning("DBHandler Could not get lattitude in getFor request")
+                            log.warning(String.warningGet + .kLattitude)
                             return
                         }
-                        guard let longitude = data["longitude"] else {
-                             log.warning("DBHandler Could not get longitude in getFor request")
+                        guard let longitude = data[.kLongitude] else {
+                             log.warning(String.warningGet + .kLongitude)
                             return
                         }
                     
@@ -47,9 +48,9 @@ class DBHandler{
                         
                         switch what {
                            
-                            case "fileNames":
-                                guard let filename = data["image_name"] else {
-                                   log.warning("DBHandler Can't get filename for image")
+                            case "filename":
+                                guard let filename = data[.kImageName] else {
+                                   log.warning(String.warningGet + .kImageName)
                                     return
                                 }
                                 if isMatch {
@@ -58,8 +59,8 @@ class DBHandler{
                             
                             case "ratings":
                             
-                                guard let ratingData = data["rating"] else {
-                                    log.warning("DBHandler Can't get ratingData")
+                                guard let ratingData = data[.kRating] else {
+                                    log.warning(String.warningGet + .kRating)
                                     return
                                 }
                                 
@@ -69,7 +70,7 @@ class DBHandler{
                                     if rating >= 1.0 {
                                         ratings.append(rating)
                                     } else {
-                                       log.warning("DBHandler ratingData Rating was less than 1")
+                                       log.warning(String.warningGet + .kRating + " less than 1")
                                     }
                                     ratings.append(rating)
                                 }//isMatch
@@ -82,9 +83,9 @@ class DBHandler{
                     }//data
                 }//for
             }//snapshot
-            if what == "ratings"{
+            if what == "ratings" {
                 completion(ratings)
-            } else if what == "fileNames" {
+            } else if what == "filename" {
                 completion(fileNames)
             } else {
                 completion(coordinates)
@@ -103,30 +104,29 @@ class DBHandler{
 
     
     func addLocation(coordinate:CLLocationCoordinate2D, rating: Double, imageName: String?){
-        let location = ["latitude": coordinate.latitude,
-                        "longitude": coordinate.longitude,
-                        "rating": rating,
-                        "image_name": imageName!,
-                        "usrEmail": social.usrEmail,
-                        "firebaseUID": social.usrUniqueID,
-                        "postDate": ServerValue.timestamp()
+        let location = [.kLattitude: coordinate.latitude,
+                        .kLongitude: coordinate.longitude,
+                        .kRating: rating,
+                        .kImageName: imageName!,
+                        .kEmail: social.usrEmail,
+                        .kFirebaseID: social.usrUniqueID,
+                        .kPostDate: ServerValue.timestamp()
             ] as [String : Any]
         self.ref.childByAutoId().setValue(location)
-        log.verbose("Location data is: \(String(describing: location))")
+        log.verbose("\(String(describing: location))")
     }//end setLocation
     
     func addUser(email: String, fullName: String, provider: String){
         
         
-        let userData = ["email": email,
-                        "full_name": fullName,
-                        "provider": provider,
-                        "firebaseUID": social.usrUniqueID,
-                        "postDate": ServerValue.timestamp()
+        let userData = [.kEmail: email,
+                        .kFullName: fullName,
+                        .kProvider: provider,
+                        .kFirebaseID: social.usrUniqueID,
+                        .kPostDate: ServerValue.timestamp()
             ] as [String : Any]
         self.userRef.childByAutoId().setValue(userData)
-        log.debug("Provider = \(provider)")
-        log.verbose("addUser \(String(describing: userData))")
+        log.verbose("\(String(describing: userData))")
     }//addUser
     
 }//DBHandler

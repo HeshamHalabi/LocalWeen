@@ -35,7 +35,7 @@ extension LocationDetialViewController {
                self.avLabel.text = ""
             }
             let avRatingStr = String(format: "%.2f", ceil(av * 100)/100)
-            self.avLabel.text = avRatingStr + " average"
+            self.avLabel.text = avRatingStr + " average of " + String(ratings.count) + " ratings"
             
         }//dbHandler
     }//averageRating

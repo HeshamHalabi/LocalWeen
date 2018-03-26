@@ -20,8 +20,9 @@ extension LocationDetialViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         userChosenPhotoFromGalleryOrCamera.image = chosenImage
-        
-        dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
+
         userChosenPhotoFromGalleryOrCamera.isHidden = false
     }//imagePickerController
 }
+
