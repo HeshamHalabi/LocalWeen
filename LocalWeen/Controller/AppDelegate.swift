@@ -34,6 +34,13 @@ let common = commonUI()
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    let orientationLock = UIInterfaceOrientationMask.portrait
+    let myOrientation: UIInterfaceOrientationMask = .portrait
+    
+    //MARK: Force portrait orientation
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return myOrientation
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         setupSwiftyBeaverLogging()
