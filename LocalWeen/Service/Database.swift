@@ -48,7 +48,7 @@ class DBHandler{
                         
                         switch what {
                            
-                            case ".filename":
+                            case "filename":
                                 guard let filename = data[.kImageName] else {
                                    log.warning(String.warningGet + .kImageName)
                                     return
@@ -85,7 +85,7 @@ class DBHandler{
             }//snapshot
             if what == "ratings" {
                 completion(ratings)
-            } else if what == "fileNames" {
+            } else if what == "filename" {
                 completion(fileNames)
             } else {
                 completion(coordinates)

@@ -105,11 +105,16 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     
     //MARK: Get Location Photos
     func getLocationPhotos(coordinate:CLLocationCoordinate2D){
+        log.debug("GET LOCATION PHOTOS")
         dbHandler.getFor(coordinateIn: coordinate, what: "filename") { (fileNames) in
             for file in fileNames{
                 log.verbose("\(String(describing: file))")
             }//for
         }//dbHandler
     }//getLocationPhotos
+    
+    /*
+      errors encountered while discovering extensions: Error Domain=PlugInKit Code=13 "query cancelled"
+ */
     
 }//LocationDetailViewController
