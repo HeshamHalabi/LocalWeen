@@ -11,7 +11,7 @@ target 'LocalWeen' do
   pod 'Cosmos'
 
   #SwiftBeaver
-  #pod 'SwiftyBeaver'
+  pod 'SwiftyBeaver'
   
   # Google Pods
   pod 'Firebase'
@@ -27,5 +27,6 @@ target 'LocalWeen' do
    
    #Facebook
    pod 'FBSDKLoginKit'
+   
 
 end

@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     
     //MARK: General
     static let kdateFormat = "MM_DD_yyyy_hh_mm_ss"
     static let kSignInError = "There was a problem signing in, please try again or check your network connection"
+    static let kPhotoPlaceholder:UIImage = #imageLiteral(resourceName: "icons8-panorama")
     
     //MARK: Map
     static let locationOfInterestImageName = "hhouseicon"
@@ -54,7 +56,7 @@ extension String {
     static let usersChild = "users"
     static let kLattitude = "latitude"
     static let kLongitude = "longitude"
-    static let kImageName = "image_name"
+    static let kImageName = "images"
     static let kRating = "rating"
     static let kEmail = "usrEmail"
     static let kFirebaseID = "firebaseUID"

@@ -47,8 +47,6 @@ class DBHandler{
                             isMatch = self.matchCoords(coordinateIn: coordinateIn!, coordFromDB: coordFromDB)
                         }//if coordinateIn
                         
-                        
-                        
                         switch what {
                          
                             case "filename":

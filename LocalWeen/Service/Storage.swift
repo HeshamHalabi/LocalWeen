@@ -28,9 +28,9 @@ struct StorageHandler {
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return "" }
         
         let metadata = StorageMetadata()
-        metadata.contentType = String.kMetaImgFormat
+        metadata.contentType = String.kMetaImgFormat // static let kMetaImgFormat = "image/jpeg"
         let formatter = DateFormatter()
-        formatter.dateFormat = String.kdateFormat
+        formatter.dateFormat = String.kdateFormat //static let kdateFormat = "MM_DD_yyyy_hh_mm_ss"
         let filename = "\(formatter.string(from: NSDate() as Date)).jpg"
         let uploadImageRef = imageReference.child(filename)
         
@@ -54,11 +54,20 @@ struct StorageHandler {
         return filename
     }//upload
     
+    
     func downLoad(filename: String) -> UIImageView{
         log.debug("Download \(filename)")
         let reference = imageReference.child(filename)
         let imageView: UIImageView = UIImageView()
-        imageView.sd_setImage(with: reference)
-        return imageView
-    }
+        imageView.sd_setShowActivityIndicatorView(true)
+        imageView.sd_setIndicatorStyle(.gray)
+        imageView.sd_setImage(with: reference, placeholderImage: String.kPhotoPlaceholder) { (_ image, error, _ cacheType, ref ) in
+            if let error = error {
+                log.error(String.errorGet + "image " + error.localizedDescription )
+            }
+         
+        }//sd_setImage
+        log.debug("Returning imageView")
+         return imageView
+    }//downLoad
 }

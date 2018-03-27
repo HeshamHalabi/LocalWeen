@@ -53,6 +53,8 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         userChosenPhotoFromGalleryOrCamera.isHidden = true
         averageRating(coordinate: coord!)
         
+        log.debug("Set existing photo to placeholder")
+        existingPhotos.image = String.kPhotoPlaceholder
         //MARK: Swipe setup
     
         let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(imageSwiped(gestureRecognizer:)))
@@ -129,7 +131,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         dbHandler.getFor(coordinateIn: coordinate, what: "filename") { (fileNames) in
             for file in fileNames{
                 let imgView:UIImageView = self.storageHandler.downLoad(filename: file as! String)
-                
+                log.debug("imgView was downloaded")
                 guard let img = imgView.image else {
                     log.warning(String.warningGet + "imgView.image")
                     return
