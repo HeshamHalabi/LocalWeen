@@ -22,10 +22,15 @@ struct StorageHandler {
         return Storage.storage().reference().child(childName)
     }
     
+
+    
     func upLoad(imageToUpload: UIImage) -> String {
         
         let image = imageToUpload
-        guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return "" }
+        guard let imageData = UIImageJPEGRepresentation(image, 0.5) else {
+            log.error(String.errorSet + "saving imagedata to Firebase")
+            log.debug(String.errorSet + "saving imagedata to Firebase")
+            return "" }
         
         let metadata = StorageMetadata()
         metadata.contentType = String.kMetaImgFormat // static let kMetaImgFormat = "image/jpeg"
