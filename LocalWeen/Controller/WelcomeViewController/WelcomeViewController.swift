@@ -33,19 +33,20 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
     
         if FBSDKAccessToken.current() != nil{
             log.verbose("Facebook token is not nil, go to map")
-            performSegue(withIdentifier: "toMap", sender: self)
+            performSegue(withIdentifier: .kSegueToMap, sender: self)
         }
 
         let fbLoginButton = FBSDKLoginButton()
         fbLoginButton.delegate = self
-        fbLoginButton.readPermissions = ["public_profile", "email"]
+        fbLoginButton.readPermissions = String.kFBPermissions
+        
        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         guard let authUI = FUIAuth.defaultAuthUI() else {
-            log.error("Could not initialize Firebase Auth UI")
-            common.showAlert(withTitle: "Error", message: "Error getting sign in")
+            log.error(String.errorGet + "\(String(describing: FUIAuth.defaultAuthUI()))")
+            common.showAlert(withTitle: String.errorGeneral, message: .kSignInError)
             return
         }
         
@@ -71,16 +72,22 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
             log.verbose("Handled URL")
             return true
         }
-            log.warning("Could not handle URL")
+            log.warning(String.warningGet + "URL")
         return false
     }
     
     
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         
+        guard let uid = user?.uid else {
+            log.warning(String.warningGet + "user.id")
+            return
+        }
         
+        social.usrUniqueID = uid
+
         guard let pData = user?.providerData else {
-            log.warning("Can't get provider data")
+            log.warning(String.warningGet + "user.providerData")
             return
         }
         
@@ -88,30 +95,30 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
             if data.providerID != "" {
                 social.provider = data.providerID
             } else {
-                log.warning("Could not get provider id")
+                log.warning(String.warningGet + "data.providerID")
             }
             
         }//data
         
         if let error = error {
-            log.error("A SignIn error occured", error.localizedDescription)
-            common.showAlert(withTitle: "SignIn ERROR", message: "There was a problem signing in, please try again or check your network connection")
+            log.error(String.errorGeneral + error.localizedDescription)
+            common.showAlert(withTitle: .errorGeneral, message: .kSignInError)
         }
         
         guard let user = user else {
-            log.error("Could not get the user")
+            log.error(String.errorGet + "user")
             return
         }
-        log.verbose("Authorization Succesful \(String(describing: user))")
+        log.verbose(String.complete + "\(String(describing: user))")
         
         guard let email = user.email else {
-            log.warning("Could not get email from user: \(String(describing: user))")
+            log.warning(String.warningGet + "\(String(describing: user))")
             return
         }
         social.usrEmail = email
         
         guard let displayName = user.displayName else {
-            log.warning("Could not get name for user: \(String(describing: user)) ")
+            log.warning(String.warningGet +  "\(String(describing: user)) ")
             return
         }
         social.fullName = displayName
@@ -119,8 +126,8 @@ class WelcomeViewController: UIViewController, FUIAuthDelegate{
 //need provider
         
         dbHandler.addUser(email: social.usrEmail, fullName: social.fullName, provider: social.provider)
-        log.debug("Source Google")
-        performSegue(withIdentifier: "toMap", sender: self)
+   
+        performSegue(withIdentifier: .kSegueToMap, sender: self)
     }
     
 }//WelcomeViewController

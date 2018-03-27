@@ -18,7 +18,7 @@ extension LocationDetialViewController {
             present(picker!, animated: true, completion: nil)
         } else {
             
-            let alert = UIAlertController(title: "Camera Not Found", message: "This device has no Camera", preferredStyle: .alert)
+            let alert = UIAlertController(title: String.errorGeneral, message: "This device has no Camera", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)

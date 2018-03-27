@@ -22,6 +22,7 @@ class socialProfile{
     var fullName = ""
     var usrEmail = ""
     var provider = ""
+    var usrUniqueID = ""
 }
 
 let social = socialProfile()
@@ -33,6 +34,13 @@ let common = commonUI()
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    let orientationLock = UIInterfaceOrientationMask.portrait
+    let myOrientation: UIInterfaceOrientationMask = .portrait
+    
+    //MARK: Force portrait orientation
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return myOrientation
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         setupSwiftyBeaverLogging()
@@ -41,9 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         //Google Maps
-        GMSServices.provideAPIKey("AIzaSyCAL3awSh-YPf9HwawGLjBjukc6Kz9478k")
+        GMSServices.provideAPIKey(.GServicesKey)
         //Google Places
-        GMSPlacesClient.provideAPIKey("AIzaSyD2RJCP9eoFaL3HPPfbYaetg_8BWhXCa24")
+        GMSPlacesClient.provideAPIKey(.GPlacesKey)
         
         //Google sign in
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
@@ -57,13 +65,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupSwiftyBeaverLogging(){
     
-        let format = "$C$L$c:$l:$DHH:mm:ss$d$C$N.$F()$c:$M"
+        let format = String.logFormat
         let console = ConsoleDestination()
         console.format = format
         log.addDestination(console)
-        let platform = SBPlatformDestination(appID: "pgxG5z",
-                                             appSecret: "rYlivwwdlfaKyfBSbhgU8yNmt5bcNNdn",
-                                             encryptionKey: "RlrWwk0ciktIadaslZ17oenoabydnzyy")
+        let platform = SBPlatformDestination(appID: String.SwiftyAppID,
+                                             appSecret: String.SwiftySecret,
+                                             encryptionKey: String.encryptionKey)
         platform.format = format
         log.addDestination(platform)
         let file = FileDestination()
