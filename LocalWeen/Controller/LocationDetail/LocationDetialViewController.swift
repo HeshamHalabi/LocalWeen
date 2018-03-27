@@ -20,7 +20,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     let storageHandler = StorageHandler()
     let locationManager = CLLocationManager()
     var currentImage = 0
-    var photos = [UIImage?]()
+    var photos = [UIImage]()
 
     
     //Outlets
@@ -30,8 +30,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var userChosenPhotoFromGalleryOrCamera: UIImageView!
     @IBOutlet weak var avLabel: UILabel!
     @IBOutlet weak var existingPhotos: UIImageView!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,7 +63,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         let rightSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(imageSwiped(gestureRecognizer:)))
         rightSwipeGesture.direction = UISwipeGestureRecognizerDirection.right
         existingPhotos.addGestureRecognizer(rightSwipeGesture)
-
+      
         
     }//viewDidLoad
     
@@ -129,8 +128,20 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     func getLocationPhotos(coordinate:CLLocationCoordinate2D){
         dbHandler.getFor(coordinateIn: coordinate, what: "filename") { (fileNames) in
             for file in fileNames{
-                log.verbose("\(String(describing: file))")
+                let imgView:UIImageView = self.storageHandler.downLoad(filename: file as! String)
+                
+                guard let img = imgView.image else {
+                    log.warning(String.warningGet + "imgView.image")
+                    return
+                }
+                
+                self.photos.append(img)
+                log.debug("Appended photos array with \(String(describing: file))")
+                
             }//for
+            
+            
+            
         }//dbHandler
     }//getLocationPhotos
     

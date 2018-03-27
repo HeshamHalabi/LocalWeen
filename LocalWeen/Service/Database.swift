@@ -17,6 +17,7 @@ class DBHandler{
     var userRef:DatabaseReference! = Database.database().reference().child(.usersChild)
     
     func getFor(coordinateIn:CLLocationCoordinate2D?, what: String, completion: @escaping ([Any]) -> ())  {
+        log.debug("What = " + what)
         
         var ratings = [Double]()
         var fileNames = [String]()
@@ -36,7 +37,7 @@ class DBHandler{
                              log.warning(String.warningGet + .kLongitude)
                             return
                         }
-                    
+                        
                         let coordFromDB = CLLocationCoordinate2DMake(latitude as! CLLocationDegrees, longitude as! CLLocationDegrees)
                         
                         var isMatch = Bool()
@@ -46,15 +47,21 @@ class DBHandler{
                             isMatch = self.matchCoords(coordinateIn: coordinateIn!, coordFromDB: coordFromDB)
                         }//if coordinateIn
                         
+                        
+                        
                         switch what {
-                           
+                         
                             case "filename":
                                 guard let filename = data[.kImageName] else {
                                    log.warning(String.warningGet + .kImageName)
                                     return
                                 }
-                                if isMatch {
+                                
+                                let fileNameString:String = filename as! String
+                                
+                                if isMatch && fileNameString.isEmpty == false {
                                         fileNames.append(filename as! String)
+                                    log.debug("File name = \(filename as! String)")
                                 }//if isMatch
                             
                             case "ratings":
@@ -83,6 +90,7 @@ class DBHandler{
                     }//data
                 }//for
             }//snapshot
+            
             if what == "ratings" {
                 completion(ratings)
             } else if what == "filename" {

@@ -37,23 +37,25 @@ struct StorageHandler {
         
         let uploadTask = uploadImageRef.putData(imageData, metadata: metadata) { (metadata, error) in
             if metadata == nil{
-                SwiftyBeaver.error(String.errorSet + "metadata is nil")
+                log.error(String.errorSet + "metadata is nil")
             }
             if error != nil {
-                SwiftyBeaver.error( String.errorSet + "\(String(describing: error))")
+                log.error( String.errorSet + "\(String(describing: error))")
             }
             
         }
         
         uploadTask.observe(.progress) { (snapshot) in
-            SwiftyBeaver.verbose(print(snapshot.progress ?? log.verbose(String.complete)))
+            log.verbose(print(snapshot.progress ?? log.verbose(String.complete)))
         }
         
         uploadTask.resume()
+        log.debug("Upload \(filename)")
         return filename
     }//upload
     
     func downLoad(filename: String) -> UIImageView{
+        log.debug("Download \(filename)")
         let reference = imageReference.child(filename)
         let imageView: UIImageView = UIImageView()
         imageView.sd_setImage(with: reference)

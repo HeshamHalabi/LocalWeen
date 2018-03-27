@@ -13,8 +13,6 @@ import SwiftyBeaver
 extension LocationDetialViewController {
     
     @objc func imageSwiped(gestureRecognizer: UIGestureRecognizer) {
-        var currentImage = 0
-        var photos = [UIImage?]()
         
         if let swipeGesture = gestureRecognizer as? UISwipeGestureRecognizer{
             
@@ -31,10 +29,10 @@ extension LocationDetialViewController {
                     
                 }//currentImage
                 
-                if let image = photos[currentImage]{
-                    self.existingPhotos.image = image
-                    log.debug("Image \(String(describing: image))")
-                }//image
+                let image = photos[currentImage]
+                
+                self.existingPhotos.image = image
+                log.debug("Image \(String(describing: image))")
                 
             case UISwipeGestureRecognizerDirection.right:
                 log.debug("Right Swipe")
@@ -48,10 +46,11 @@ extension LocationDetialViewController {
                 }//curentImage
     
                 log.debug("currentImage \(String(describing: currentImage ))")
-                if let image = photos[currentImage]{
-                    self.existingPhotos.image = image
-                    log.debug("Image \(String(describing: image))")
-                }//image
+                
+                let image = photos[currentImage]
+                self.existingPhotos.image = image
+                log.debug("Image \(String(describing: image))")
+                
             default:
                 break
             }//switch

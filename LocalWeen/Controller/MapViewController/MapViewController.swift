@@ -138,7 +138,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, CLLocationManager
         loginManager.logOut()
         FBSDKAccessToken.setCurrent(nil)
         
-        log.debug("Did log out Facebook? \(String(describing: FBSDKAccessToken.current() )) nil means signed out")
+        log.verbose("Did log out Facebook? \(String(describing: FBSDKAccessToken.current() )) nil means signed out")
         
         do {
             try Auth.auth().signOut()
