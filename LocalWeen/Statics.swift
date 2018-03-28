@@ -64,7 +64,7 @@ extension String {
     
     //MARK: Storage Related
     static let kMetaImgFormat = "image/jpeg"
-    static let kStorageURL = "gs://magnificent-pen-192218.appspot.com/"
+    static let kStorageURL = "https://magnificent-pen-192218.appspot.com/"
     
     
     //MARK Facebook Permissions
