@@ -18,12 +18,12 @@ extension LocationDetialViewController {
     }//openGallary
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        //let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        /*********************/
-        // When should i do this?
+       
+        /***********************************************************/
+        //    How do i really get the image that is in the editor  - back to the location cont
+        // let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         //userChosenPhotoFromGalleryOrCamera.image = chosenImage
-        
-        log.debug("Chose a photo")
+        //log.debug("Chose a photo")
         
         picker.dismiss(animated: true, completion: {
             log.debug("Dismiss the picker controller and present Photo Edit")

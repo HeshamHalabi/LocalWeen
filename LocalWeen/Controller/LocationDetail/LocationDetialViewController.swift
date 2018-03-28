@@ -88,6 +88,15 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     
     
     @IBAction func photoButton(_ sender: UIButton) {
+        getPhotoRollAccessibilityAndRequestIfNeeded { (finished) in
+            if finished {
+                log.verbose(String.complete)
+            } else {
+                log.warning(String.warningGet + "camera roll access")
+            }
+            
+        }
+        
         let actionSheet = UIAlertController(title: String.kPhotoSource, message: String.kPhotoSourceChoice, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: String.kCameraText, style: .default, handler: { (action:UIAlertAction) in
             self.openCamera()

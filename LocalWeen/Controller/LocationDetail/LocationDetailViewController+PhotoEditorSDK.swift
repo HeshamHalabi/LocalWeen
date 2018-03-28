@@ -77,7 +77,7 @@ extension LocationDetialViewController: PhotoEditViewControllerDelegate {
         let alert =  UIAlertController(title: "Saved", message: "Saved to Camera Roll", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (alertAction) in
             // Return any edited content to the host app.
-            self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+            //self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
         }))
         photoEditViewController.present(alert, animated: true)
     }
