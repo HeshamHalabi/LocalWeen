@@ -50,16 +50,17 @@ class DBHandler{
                         switch what {
                          
                             case "filename":
-                                guard let filename = data[.kImageName] else {
-                                   log.warning(String.warningGet + .kImageName)
+                                
+                                if data["image_name"] == nil {
+                                    log.debug(String.warningGeneral + "image_name is nil")
                                     return
                                 }
                                 
-                                let fileNameString:String = filename as! String
+                                let filename:String = data["image_name"] as! String
                                 
-                                if isMatch && fileNameString.isEmpty == false {
-                                        fileNames.append(filename as! String)
-                                    log.debug("File name = \(filename as! String)")
+                                if isMatch  {
+                                    fileNames.append(filename )
+                                    log.debug("File name = \(filename)")
                                 }//if isMatch
                             
                             case "ratings":
@@ -92,6 +93,7 @@ class DBHandler{
             if what == "ratings" {
                 completion(ratings)
             } else if what == "filename" {
+                log.debug(String.complete + "returning filenames")
                 completion(fileNames)
             } else {
                 completion(coordinates)

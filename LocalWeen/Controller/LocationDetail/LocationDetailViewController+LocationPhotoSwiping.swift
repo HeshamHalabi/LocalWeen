@@ -19,7 +19,7 @@ extension LocationDetialViewController {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.left :
                 log.debug("Left Swipe")
-                if currentImage == photos.count - 1 && photos.count >= 0{
+                if currentImage == existingPhotosList.count - 1 && existingPhotosList.count >= 0{
                     currentImage = 0
                     log.debug("Set current image to 0")
                     
@@ -29,16 +29,17 @@ extension LocationDetialViewController {
                     
                 }//currentImage
                 
-                let image = photos[currentImage]
-                
-                self.existingPhotos.image = image
-                log.debug("Image \(String(describing: image))")
+                if currentImage >= 0 {
+                    let imageToDownload = existingPhotosList[currentImage]
+                    storageHandler.downLoad(filename: imageToDownload , imageView: existingPhotos)
+                }
+            
                 
             case UISwipeGestureRecognizerDirection.right:
                 log.debug("Right Swipe")
-                if currentImage == 0 && photos.count >= 1 {
-                    currentImage = photos.count - 1
-                    log.debug("Set currentImage to photos.count - 1 = \(String(describing: photos.count - 1))"  )
+                if currentImage == 0 && existingPhotosList.count >= 1 {
+                    currentImage = existingPhotosList.count - 1
+                    log.debug("Set currentImage to photos.count - 1 = \(String(describing: existingPhotosList.count - 1))"  )
                 } else {
                     currentImage -= 1
                     log.debug("Current image = \(String(describing: currentImage))")
@@ -47,9 +48,8 @@ extension LocationDetialViewController {
     
                 log.debug("currentImage \(String(describing: currentImage ))")
                 
-                let image = photos[currentImage]
-                self.existingPhotos.image = image
-                log.debug("Image \(String(describing: image))")
+                let imageToDownload = existingPhotosList[currentImage]
+                storageHandler.downLoad(filename: imageToDownload , imageView: existingPhotos)
                 
             default:
                 break

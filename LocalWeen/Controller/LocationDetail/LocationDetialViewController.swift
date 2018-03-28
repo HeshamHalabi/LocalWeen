@@ -20,8 +20,7 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     let storageHandler = StorageHandler()
     let locationManager = CLLocationManager()
     var currentImage = 0
-    var photos = [UIImage]()
-
+    var existingPhotosList = [String]()
     
     //Outlets
     @IBOutlet weak var addressLabel: UILabel!
@@ -40,22 +39,30 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         if cosmosView.rating <= 0  {
             saveButton.isEnabled = false
         }//if
-        
-        
         cosmosView.rating = 0
         cosmosView.didFinishTouchingCosmos = didFinishTouchingCosmos
         cosmosView.didTouchCosmos = didTouchCosmos
+        averageRating(coordinate: coord!)
         
-        //MARK: Photos setup
-        
-        getLocationPhotos(coordinate: coord!)
+        //MARK: Image Picker Setup
         picker?.delegate = self
         userChosenPhotoFromGalleryOrCamera.isHidden = true
-        averageRating(coordinate: coord!)
+        
+        //MARK: Swipe setup
+        
+        dbHandler.getFor(coordinateIn: coord!, what: "filename") { (filenames) in
+            if filenames.count < 0 {
+                log.error(String.errorGet + "list of image file names from database")
+            } else {
+                for filename in filenames {
+                    log.debug("Appending file named \(filename as! String) to existingPhotosList")
+                    self.existingPhotosList.append(filename as! String)
+                }//for filename
+            }//else
+        }//dbHandler
         
         log.debug("Set existing photo to placeholder")
         existingPhotos.image = String.kPhotoPlaceholder
-        //MARK: Swipe setup
     
         let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(imageSwiped(gestureRecognizer:)))
         leftSwipeGesture.direction = UISwipeGestureRecognizerDirection.left
@@ -126,26 +133,6 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         
     }//photoButton
     
-    //MARK: Get Location Photos
-    func getLocationPhotos(coordinate:CLLocationCoordinate2D){
-        dbHandler.getFor(coordinateIn: coordinate, what: "filename") { (fileNames) in
-            for file in fileNames{
-                let imgView:UIImageView = self.storageHandler.downLoad(filename: file as! String)
-                log.debug("imgView was downloaded")
-                guard let img = imgView.image else {
-                    log.warning(String.warningGet + "imgView.image")
-                    return
-                }
-                
-                self.photos.append(img)
-                log.debug("Appended photos array with \(String(describing: file))")
-                
-            }//for
-            
-            
-            
-        }//dbHandler
-    }//getLocationPhotos
     
     
 }//LocationDetailViewController

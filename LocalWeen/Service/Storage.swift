@@ -60,19 +60,23 @@ struct StorageHandler {
     }//upload
     
     
-    func downLoad(filename: String) -> UIImageView{
+    func downLoad(filename: String, imageView: UIImageView){
         log.debug("Download \(filename)")
         let reference = imageReference.child(filename)
-        let imageView: UIImageView = UIImageView()
+        
         imageView.sd_setShowActivityIndicatorView(true)
         imageView.sd_setIndicatorStyle(.gray)
-        imageView.sd_setImage(with: reference, placeholderImage: String.kPhotoPlaceholder) { (_ image, error, _ cacheType, ref ) in
+        imageView.sd_setImage(with: reference, placeholderImage: String.kPhotoPlaceholder) { (image, error, cacheType, ref ) in
             if let error = error {
                 log.error(String.errorGet + "image " + error.localizedDescription )
+            }//error
+            
+            if let image = image {
+                log.debug(image)
             }
+            
+            log.debug(ref)
          
         }//sd_setImage
-        log.debug("Returning imageView")
-         return imageView
     }//downLoad
 }
