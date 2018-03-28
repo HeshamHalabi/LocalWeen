@@ -6,6 +6,31 @@
 //  Copyright © 2018 Bruce Bookman. All rights reserved.
 
 
+
+
+
+
+
+
+
+
+/*
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ after choosing image, don't get the UI.  May be because of all the NSItem code and last check in may be better!
+ 
+ 
+ 
+ 
+ 
+ */
+
+
 import Cosmos
 import UIKit
 import GoogleMaps
