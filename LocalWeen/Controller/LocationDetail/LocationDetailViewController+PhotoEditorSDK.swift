@@ -10,6 +10,8 @@ import UIKit
 import PhotoEditorSDK
 import SwiftyBeaver
 import MobileCoreServices
+import AVFoundation
+import Photos
 
 
 extension LocationDetialViewController: PhotoEditViewControllerDelegate {
@@ -129,7 +131,51 @@ extension LocationDetialViewController: PhotoEditViewControllerDelegate {
         let configuration = buildConfiguration()
         log.debug("Setting up photoEditViewController with configuration")
         let photoEditViewController = PhotoEditViewController(photoAsset: photoAsset, configuration: configuration)
+        self.present(photoEditViewController, animated: true, completion: nil)
     }
+    
+ 
+    
+    func getPhotoRollAccessibilityAndRequestIfNeeded(completion: @escaping (_ isAccesible: Bool)->Void) {
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                log.debug(String.complete + "Photo library authorized" )
+                completion(true)
+            case .restricted, .denied :
+                log.debug(String.warningGeneral +  "Photo library was restricted, denied or not determined")
+                completion(false)
+            case .notDetermined :
+                AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (didAllow) in
+                    log.debug("Camera was allowed = \(String(describing: didAllow))")
+                    completion(didAllow)
+                })
+                
+            }
+        }
+    }
+    
+/******************** Do i need this??? **************/
+/*
+ func getCameraAccessibilityAndRequestIfNeeded(completion: @escaping (_ isAccesible: Bool)->Void) {
+ let authorizationState = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+ switch authorizationState {
+ case .notDetermined:
+ AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { (didAllow) in
+ log.debug("Camera was allowed = \(String(describing: didAllow))")
+ completion(didAllow)
+ })
+ case .restricted, .denied:
+ log.debug("Camera access restricted or denied")
+ log.warning(String.warningGeneral + "Camera access restricted or denied")
+ completion(false)
+ case .authorized:
+ log.debug(String.complete + "Camera access authorized")
+ completion(true)
+ 
+ }
+ }
+ */
     
 }//extension
 

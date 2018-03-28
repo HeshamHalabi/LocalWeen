@@ -18,8 +18,10 @@ extension LocationDetialViewController {
     }//openGallary
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        userChosenPhotoFromGalleryOrCamera.image = chosenImage
+        //let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        /*********************/
+        // When should i do this?
+        //userChosenPhotoFromGalleryOrCamera.image = chosenImage
         
         log.debug("Chose a photo")
         
@@ -28,6 +30,7 @@ extension LocationDetialViewController {
             self.presentPhotoEditViewController()
         })
         log.debug("Stop hiding the user chosen image")
+        
         userChosenPhotoFromGalleryOrCamera.isHidden = false
         
     }//imagePickerController
