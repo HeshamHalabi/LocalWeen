@@ -10,6 +10,8 @@
 		3BA9703D3C93AAADC438F805 /* Pods_LocalWeen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C52BD55132D16716DBB1917A /* Pods_LocalWeen.framework */; };
 		CE23C559204B4B32004E090A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23C558204B4B32004E090A /* Database.swift */; };
 		CE23C55B204B5B0E004E090A /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23C55A204B5B0E004E090A /* Storage.swift */; };
+		CE27C126206C163B006A67CA /* AlamoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE27C125206C163B006A67CA /* AlamoViewController.swift */; };
+		CE2F529D206C05A700D76227 /* AlamoFire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F529C206C05A700D76227 /* AlamoFire.swift */; };
 		CE567EA4204E178700C457BD /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE567EA3204E178600C457BD /* LegalViewController.swift */; };
 		CE828FEF2059E4D30027B06C /* MapViewController+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE828FEE2059E4D30027B06C /* MapViewController+SearchBar.swift */; };
 		CE8F651220647CCE007FE079 /* FUIAuthBaseViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8F651120647CCE007FE079 /* FUIAuthBaseViewController+extension.swift */; };
@@ -38,6 +40,8 @@
 		CD3F74A393E63CB568FC000F /* Pods-LocalWeen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalWeen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalWeen/Pods-LocalWeen.debug.xcconfig"; sourceTree = "<group>"; };
 		CE23C558204B4B32004E090A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		CE23C55A204B5B0E004E090A /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		CE27C125206C163B006A67CA /* AlamoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoViewController.swift; sourceTree = "<group>"; };
+		CE2F529C206C05A700D76227 /* AlamoFire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoFire.swift; sourceTree = "<group>"; };
 		CE567EA3204E178600C457BD /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
 		CE7F78412051EC670021E93C /* LocalWeen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalWeen.entitlements; sourceTree = "<group>"; };
 		CE828FEE2059E4D30027B06C /* MapViewController+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+SearchBar.swift"; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			children = (
 				CE23C558204B4B32004E090A /* Database.swift */,
 				CE23C55A204B5B0E004E090A /* Storage.swift */,
+				CE2F529C206C05A700D76227 /* AlamoFire.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				CEC17DFE204A194E0075351E /* AppDelegate.swift */,
 				CEE7ED8C206973D500A205F4 /* Statics.swift */,
 				CE567EA3204E178600C457BD /* LegalViewController.swift */,
+				CE27C125206C163B006A67CA /* AlamoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -341,6 +347,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LocalWeen/Pods-LocalWeen-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -355,6 +363,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -384,8 +394,10 @@
 				CEF170AA205B470500A6C9A3 /* MapViewController+PlaceMarker.swift in Sources */,
 				CEC17DFF204A194E0075351E /* AppDelegate.swift in Sources */,
 				CE567EA4204E178700C457BD /* LegalViewController.swift in Sources */,
+				CE27C126206C163B006A67CA /* AlamoViewController.swift in Sources */,
 				CEF170A6205B43D300A6C9A3 /* MapViewController+GMSAutocomplete.swift in Sources */,
 				CEF1145320576A7200001525 /* LocationDetialViewController+Ratings.swift in Sources */,
+				CE2F529D206C05A700D76227 /* AlamoFire.swift in Sources */,
 				CEE7ED8D206973D500A205F4 /* Statics.swift in Sources */,
 				CEF170A8205B457C00A6C9A3 /* MapViewController+CLLocationManagerDelegate.swift in Sources */,
 				CEC17E17204A27240075351E /* WelcomeViewController.swift in Sources */,

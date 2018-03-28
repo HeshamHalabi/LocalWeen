@@ -54,7 +54,7 @@ extension String {
     static let usersChild = "users"
     static let kLattitude = "latitude"
     static let kLongitude = "longitude"
-    static let kImageName = "image_name"
+    static let kImageName = "images"
     static let kRating = "rating"
     static let kEmail = "usrEmail"
     static let kFirebaseID = "firebaseUID"
@@ -64,7 +64,7 @@ extension String {
     
     //MARK: Storage Related
     static let kMetaImgFormat = "image/jpeg"
-    
+    static let kStorageURL = "gs://magnificent-pen-192218.appspot.com/"
     
     
     //MARK Facebook Permissions
