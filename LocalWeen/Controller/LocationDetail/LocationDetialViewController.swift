@@ -46,6 +46,13 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         
     }//viewDidLoad
     
+    override func viewWillAppear(_ animated: Bool) {
+        doesNSExtentionItemHavePhoto()
+        self.getPhotoRollAccessibilityAndRequestIfNeeded { (allowed) in
+            log.debug("Is photo roll allowed? \(allowed)")
+        }
+    }
+    
     func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
         let geocoder = GMSGeocoder()
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in

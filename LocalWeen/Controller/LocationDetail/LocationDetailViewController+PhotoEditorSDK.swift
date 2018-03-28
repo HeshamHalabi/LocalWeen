@@ -47,9 +47,13 @@ extension LocationDetialViewController: PhotoEditViewControllerDelegate {
     
     
      func presentPhotoEditViewController() {
-        
-        let photo = Photo.init(image: userChosenPhotoFromGalleryOrCamera.image!)
-        present(createPhotoEditViewController(with: photo), animated: true )
+ 
+        if userChosenPhotoFromGalleryOrCamera.image != nil {
+            let photo = Photo.init(image: userChosenPhotoFromGalleryOrCamera.image!)
+            present(createPhotoEditViewController(with: photo), animated: true )
+        } else {
+            log.warning(String.warningGeneral + "userChosenPhotoFromGalleryOrCamera.image is nil")
+        }
     }
 
     
@@ -84,48 +88,51 @@ extension LocationDetialViewController: PhotoEditViewControllerDelegate {
     }
     
     func doesNSExtentionItemHavePhoto(){
-        var imageFound = false
-        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
-            for provider in item.attachments! as! [NSItemProvider] {
-                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-                    log.debug("Found an image in NSExtensionItem")
-                    
-                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (data, error) in
-                        OperationQueue.main.addOperation {
-                            var contentData: Data? = nil
-                            
-                            if let data = data as? Data {
-                                log.debug("Setting contentData = data")
-                                contentData = data
-                            } else if let url = data as? URL {
-                                log.debug("trying to set contentData to Data(contentsOf: url) ")
-                                contentData = try? Data(contentsOf: url)
-                            }else if let imageData = data as? UIImage {
-                                log.debug("Setting contentData = UIImagePNGRepresentation(imageData) ")
-                                contentData = UIImagePNGRepresentation(imageData)
+        
+        if self.extensionContext?.inputItems != nil {
+        
+            for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
+                
+                guard let attachements = item.attachments else {
+                    log.debug(String.warningGet +  "Did not get any attachments from item in [NSExtensionItem] ")
+                    return
+                }//guard
+                
+                for provider in attachements as! [NSItemProvider] {
+                    if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
+                        log.debug("Found an image in NSExtensionItem")
+                        
+                        provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (data, error) in
+                            if let error = error {
+                                log.error(String.errorGeneral + error.localizedDescription)
                             }
-                            if let contentData = contentData{
-                                log.debug("We have contentData!")
-                                let photoAsset = Photo(data: contentData)
-                                log.debug("Setting let photoAsset = Photo(data: contentData)")
-                                log.debug("Presenting Photo Editor")
-                                self.presentPhotoEditorController(photoAsset: photoAsset)
+                            OperationQueue.main.addOperation {
+                                var contentData: Data? = nil
                                 
-                            }
-                        }
-                    })
-                    log.debug("Found an image in NSExtentionItem")
-                    imageFound = true
-                    break
-                }
-            }
-            
-            if (imageFound) {
-                log.debug("Found an image, and only want one so stop looking")
-                break
-            }
-        }
-    }
+                                if let data = data as? Data {
+                                    log.debug("Setting contentData = data")
+                                    contentData = data
+                                } else if let url = data as? URL {
+                                    log.debug("trying to set contentData to Data(contentsOf: url) ")
+                                    contentData = try? Data(contentsOf: url)
+                                }else if let imageData = data as? UIImage {
+                                    log.debug("Setting contentData = UIImagePNGRepresentation(imageData) ")
+                                    contentData = UIImagePNGRepresentation(imageData)
+                                }
+                                if let contentData = contentData{
+                                    log.debug("We have contentData!")
+                                    let photoAsset = Photo(data: contentData)
+                                    log.debug("Setting let photoAsset = Photo(data: contentData)")
+                                    log.debug("Presenting Photo Editor")
+                                    self.presentPhotoEditorController(photoAsset: photoAsset)
+                                }//contentData
+                            }//OperationQueue
+                        })//provider.loadItem
+                    }//if provider
+                }//for provider
+            }//for item
+        }//if self.extensionContext
+    }//doesNSExtentionItemHavePhoto
     
     func presentPhotoEditorController(photoAsset: Photo){
         let configuration = buildConfiguration()

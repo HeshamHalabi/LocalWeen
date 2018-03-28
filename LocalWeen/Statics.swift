@@ -76,7 +76,7 @@ extension String {
     static let kAgreementTitle = "Save Agreement"
     static let kAgreementDetails = "You certify that you are not submitting a location for any illegal or unethical reason.  You agree to all of LocalWeen's legal such as Terms of Service"
     static let kPhotoSource = "Photo Source"
-    static let kPhotoSourceChoice = "Choose a source"
+    static let kPhotoSourceChoice = "Choose Camera or Photo Library"
     static let kCameraText = "Camera"
     static let kPhotoLibraryText = "Library"
     
