@@ -10,6 +10,8 @@
 		3BA9703D3C93AAADC438F805 /* Pods_LocalWeen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C52BD55132D16716DBB1917A /* Pods_LocalWeen.framework */; };
 		CE23C559204B4B32004E090A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23C558204B4B32004E090A /* Database.swift */; };
 		CE23C55B204B5B0E004E090A /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE23C55A204B5B0E004E090A /* Storage.swift */; };
+		CE5528E7206AE08500977579 /* ios_license.dms in Resources */ = {isa = PBXBuildFile; fileRef = CE5528E6206AE08500977579 /* ios_license.dms */; };
+		CE5528E9206AE2A600977579 /* LocationDetailViewController+PhotoEditorSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5528E8206AE2A600977579 /* LocationDetailViewController+PhotoEditorSDK.swift */; };
 		CE567EA4204E178700C457BD /* LegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE567EA3204E178600C457BD /* LegalViewController.swift */; };
 		CE828FEF2059E4D30027B06C /* MapViewController+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE828FEE2059E4D30027B06C /* MapViewController+SearchBar.swift */; };
 		CE8F651220647CCE007FE079 /* FUIAuthBaseViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8F651120647CCE007FE079 /* FUIAuthBaseViewController+extension.swift */; };
@@ -38,6 +40,8 @@
 		CD3F74A393E63CB568FC000F /* Pods-LocalWeen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalWeen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalWeen/Pods-LocalWeen.debug.xcconfig"; sourceTree = "<group>"; };
 		CE23C558204B4B32004E090A /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		CE23C55A204B5B0E004E090A /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		CE5528E6206AE08500977579 /* ios_license.dms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios_license.dms; sourceTree = "<group>"; };
+		CE5528E8206AE2A600977579 /* LocationDetailViewController+PhotoEditorSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationDetailViewController+PhotoEditorSDK.swift"; sourceTree = "<group>"; };
 		CE567EA3204E178600C457BD /* LegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalViewController.swift; sourceTree = "<group>"; };
 		CE7F78412051EC670021E93C /* LocalWeen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalWeen.entitlements; sourceTree = "<group>"; };
 		CE828FEE2059E4D30027B06C /* MapViewController+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+SearchBar.swift"; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				CEC17E12204A246B0075351E /* Service */,
 				CEC17E0A204A194F0075351E /* Info.plist */,
 				CEC17E10204A19880075351E /* GoogleService-Info.plist */,
+				CE5528E6206AE08500977579 /* ios_license.dms */,
 				CEEFE61720648682005FF2B4 /* BridgingHeader.h */,
 			);
 			path = LocalWeen;
@@ -179,6 +184,7 @@
 				CEF1145620576ED600001525 /* LocationDetailViewController+Camera.swift */,
 				CEF1145420576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift */,
 				CEF1145220576A7100001525 /* LocationDetialViewController+Ratings.swift */,
+				CE5528E8206AE2A600977579 /* LocationDetailViewController+PhotoEditorSDK.swift */,
 			);
 			path = LocationDetail;
 			sourceTree = "<group>";
@@ -264,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC17E09204A194F0075351E /* LaunchScreen.storyboard in Resources */,
+				CE5528E7206AE08500977579 /* ios_license.dms in Resources */,
 				CEC17E11204A19880075351E /* GoogleService-Info.plist in Resources */,
 				CEC17E06204A194F0075351E /* Assets.xcassets in Resources */,
 				CEC17E04204A194F0075351E /* Main.storyboard in Resources */,
@@ -348,6 +355,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${PODS_ROOT}/PhotoEditorSDK/pesdk-ios-build-8.2.4/PhotoEditorSDK.framework",
+				"${PODS_ROOT}/PhotoEditorSDK/pesdk-ios-build-8.2.4/PhotoEditorSDK.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -362,6 +371,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhotoEditorSDK.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/PhotoEditorSDK.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -393,6 +404,7 @@
 				CE828FEF2059E4D30027B06C /* MapViewController+SearchBar.swift in Sources */,
 				CE23C559204B4B32004E090A /* Database.swift in Sources */,
 				CEF1145520576B8B00001525 /* LocationDetailViewController+PhotoGallery.swift in Sources */,
+				CE5528E9206AE2A600977579 /* LocationDetailViewController+PhotoEditorSDK.swift in Sources */,
 				CEC17E1B204A30A30075351E /* MapViewController.swift in Sources */,
 				CE23C55B204B5B0E004E090A /* Storage.swift in Sources */,
 				CE8F651220647CCE007FE079 /* FUIAuthBaseViewController+extension.swift in Sources */,

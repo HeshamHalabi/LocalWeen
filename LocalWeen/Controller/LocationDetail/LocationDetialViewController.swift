@@ -111,9 +111,6 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
             }//for
         }//dbHandler
     }//getLocationPhotos
-    
-    /*
-      errors encountered while discovering extensions: Error Domain=PlugInKit Code=13 "query cancelled"
- */
+
     
 }//LocationDetailViewController

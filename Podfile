@@ -7,6 +7,9 @@ target 'LocalWeen' do
 
   # Pods for LocalWeen
   
+  #PhotoSDK
+  pod 'PhotoEditorSDK'
+ 
   #Cosmos Pod
   pod 'Cosmos'
 
