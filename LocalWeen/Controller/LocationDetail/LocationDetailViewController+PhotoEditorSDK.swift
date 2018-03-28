@@ -47,9 +47,13 @@ extension LocationDetialViewController: PhotoEditViewControllerDelegate {
     
     
      func presentPhotoEditViewController() {
-        
-        let photo = Photo.init(image: userChosenPhotoFromGalleryOrCamera.image!)
-        present(createPhotoEditViewController(with: photo), animated: true )
+        if userChosenPhotoFromGalleryOrCamera.image != nil {
+            let photo = Photo.init(image: userChosenPhotoFromGalleryOrCamera.image!)
+            present(createPhotoEditViewController(with: photo), animated: true )
+        } else {
+            log.warning(String.warningGeneral + "userChosenPhotoFromGalleryOrCamera.image is nil")
+        }
+
     }
 
     
