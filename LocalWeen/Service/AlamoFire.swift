@@ -14,8 +14,6 @@ import SwiftyBeaver
 
 struct Alamo {
     
-    //don't know how to get url for firebase
-    
     func getImage(){
         
         let url:String = String.kStorageURL + String.kImageName + "03_86_2018_10_56_09.jpg" //as a test
