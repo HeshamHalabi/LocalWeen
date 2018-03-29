@@ -33,8 +33,15 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //MARK: Get list of location photos from DB     
+        reverseGeocodeCoordinate(coord!)
+        averageRating(coordinate: coord!)
+        
+        existingPhotos.isHidden = true
+        
+        //MARK: Get list of location photos from DB
+        
         dbHandler.getFor(coordinateIn: coord!, what: "filename") { (filenames) in
+           // let sv = UIViewController.displaySpinner(onView: self.view)
             if filenames.isEmpty {
                 log.verbose("File name array is empty")
             } else {
@@ -42,16 +49,17 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
                     self.existingPhotosList = array
                 }//if let array
             }//if filenames.isEmpty
+           // UIViewController.removeSpinner(spinner: sv)
         }//dbHandler
         
         
-        
-        if let c = coord {
-            reverseGeocodeCoordinate(c)
-            averageRating(coordinate: c)
-        } else {
-            log.error(String.errorGet + "coordinates for location")
+        guard let firstPhoto = existingPhotosList.first else {
+            log.debug("ExistingPhotosList does not have any first image - which could be fine since we may not have any")
+            return
         }
+        
+        storageHandler.downLoad(filename: firstPhoto, imageView: existingPhotos)
+    
         
         //MARK: Cosmos Setup
         if cosmosView.rating <= 0  {

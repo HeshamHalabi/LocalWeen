@@ -22,8 +22,6 @@ struct StorageHandler {
         return Storage.storage().reference().child(childName)
     }
     
-
-    
     func upLoad(imageToUpload: UIImage) -> String {
         
         let image = imageToUpload

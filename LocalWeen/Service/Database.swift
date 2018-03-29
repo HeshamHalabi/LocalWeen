@@ -50,12 +50,18 @@ class DBHandler{
                         switch what {
                          
                             case "filename":
-                                if (data["image_name"] as! String).isEmpty == false {
-                                    if let imageName = data["image_name"] as? String {
-                                        fileNames.append(imageName)
-                                    }//if let
-                                }//if data
-    
+                                
+                                guard let imgName = data["image_name"] as? String else {
+                                    log.debug("Data has no value for image_name")
+                                    return
+                                }
+                            
+                                if imgName.isEmpty {
+                                    log.debug("imgName.isEmpty ")
+                                } else {
+                                    log.debug("Appending file \(String(describing: imgName)) to fileNames array")
+                                    fileNames.append(imgName)
+                                }
                             
                             case "ratings":
                             
