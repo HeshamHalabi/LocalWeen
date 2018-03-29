@@ -23,7 +23,7 @@ class DBHandler{
         var fileNames = [String]()
         var coordinates = [CLLocationCoordinate2D]()
         
-        ref.observeSingleEvent(of: .value) { (snapshot) in
+        self.ref.observeSingleEvent(of: .value) { (snapshot) in
             if let snapshot =  snapshot.children.allObjects as? [DataSnapshot]{
                 for snap in snapshot {
                     if let data = snap.value as? [String:Any]{
@@ -50,18 +50,12 @@ class DBHandler{
                         switch what {
                          
                             case "filename":
-                                
-                                if data["image_name"] == nil {
-                                    log.debug(String.warningGeneral + "image_name is nil")
-                                    return
-                                }
-                                
-                                let filename:String = data["image_name"] as! String
-                                
-                                if isMatch  {
-                                    fileNames.append(filename )
-                                    log.debug("File name = \(filename)")
-                                }//if isMatch
+                                if (data["image_name"] as! String).isEmpty == false {
+                                    if let imageName = data["image_name"] as? String {
+                                        fileNames.append(imageName)
+                                    }//if let
+                                }//if data
+    
                             
                             case "ratings":
                             

@@ -33,7 +33,25 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        reverseGeocodeCoordinate(coord!)
+        //MARK: Get list of location photos from DB     
+        dbHandler.getFor(coordinateIn: coord!, what: "filename") { (filenames) in
+            if filenames.isEmpty {
+                log.verbose("File name array is empty")
+            } else {
+                if let array = filenames as? [String] {
+                    self.existingPhotosList = array
+                }//if let array
+            }//if filenames.isEmpty
+        }//dbHandler
+        
+        
+        
+        if let c = coord {
+            reverseGeocodeCoordinate(c)
+            averageRating(coordinate: c)
+        } else {
+            log.error(String.errorGet + "coordinates for location")
+        }
         
         //MARK: Cosmos Setup
         if cosmosView.rating <= 0  {
@@ -42,27 +60,17 @@ class LocationDetialViewController: UIViewController, UIImagePickerControllerDel
         cosmosView.rating = 0
         cosmosView.didFinishTouchingCosmos = didFinishTouchingCosmos
         cosmosView.didTouchCosmos = didTouchCosmos
-        averageRating(coordinate: coord!)
+        
         
         //MARK: Image Picker Setup
         picker?.delegate = self
         userChosenPhotoFromGalleryOrCamera.isHidden = true
         
         //MARK: Swipe setup
-        
-        dbHandler.getFor(coordinateIn: coord!, what: "filename") { (filenames) in
-            if filenames.count < 0 {
-                log.error(String.errorGet + "list of image file names from database")
-            } else {
-                for filename in filenames {
-                    log.debug("Appending file named \(filename as! String) to existingPhotosList")
-                    self.existingPhotosList.append(filename as! String)
-                }//for filename
-            }//else
-        }//dbHandler
-        
+
         log.debug("Set existing photo to placeholder")
         existingPhotos.image = String.kPhotoPlaceholder
+      
     
         let leftSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(imageSwiped(gestureRecognizer:)))
         leftSwipeGesture.direction = UISwipeGestureRecognizerDirection.left
